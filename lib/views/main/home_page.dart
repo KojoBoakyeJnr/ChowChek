@@ -1,6 +1,10 @@
 import 'dart:convert';
 
 import 'package:chowchek/providers/user_details_provider.dart';
+import 'package:chowchek/utils/app_colors.dart';
+import 'package:chowchek/views/main/blacklist_page.dart';
+import 'package:chowchek/views/main/saved_page.dart';
+import 'package:chowchek/views/main/today_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,22 +23,46 @@ class _HomePageState extends State<HomePage> {
     Provider.of<UserDetailsProvider>(context, listen: false).loadAllFromPrefs();
   }
 
+  List pages = [TodayPage(), SavedPage(), BlacklistPage()];
+  int currentPage = 0;
   @override
   Widget build(BuildContext context) {
     return Consumer<UserDetailsProvider>(
       builder:
           (context, model, child) => Scaffold(
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(model.userName),
-                  Text(model.isLoggedIn.toString()),
-                  Text(model.averageMealsPerDay.toString()),
-                  Text(jsonEncode(model.nutrientLoggedLimits)),
-                ],
+            bottomNavigationBar: BottomNavigationBar(
+              selectedLabelStyle: TextStyle(
+                fontWeight: FontWeight.w800,
+                fontSize: 15,
               ),
+              unselectedLabelStyle: TextStyle(
+                fontWeight: FontWeight.w800,
+                fontSize: 10,
+              ),
+              selectedItemColor: AppColors.deepGreen,
+              currentIndex: currentPage,
+
+              onTap:
+                  (value) => setState(() {
+                    currentPage = value;
+                  }),
+
+              items: [
+                BottomNavigationBarItem(
+                  icon: Text("📆", style: TextStyle(fontSize: 25)),
+                  label: "Today",
+                ),
+                BottomNavigationBarItem(
+                  icon: Text("💚", style: TextStyle(fontSize: 25)),
+                  label: "Saved",
+                ),
+                BottomNavigationBarItem(
+                  icon: Text("❌", style: TextStyle(fontSize: 25)),
+                  label: "Blacklist",
+                ),
+              ],
             ),
+            body: pages[currentPage],
           ),
     );
   }
