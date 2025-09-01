@@ -1,0 +1,178 @@
+import 'package:chowchek/utils/app_button.dart';
+import 'package:chowchek/utils/app_colors.dart';
+import 'package:chowchek/utils/app_strings.dart';
+import 'package:chowchek/utils/app_text_form_fields.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+
+class AuthPageSignup extends StatefulWidget {
+  const AuthPageSignup({super.key});
+
+  @override
+  State<AuthPageSignup> createState() => _AuthPageSignupState();
+}
+
+class _AuthPageSignupState extends State<AuthPageSignup> {
+  final TextEditingController _emailController = TextEditingController();
+
+  final TextEditingController _passwordController = TextEditingController();
+  bool emailFilled = false;
+  bool passwordFilled = false;
+  String signUpErrorMessage = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController.addListener(() {
+      if (_emailController.text.isNotEmpty) {
+        setState(() {
+          emailFilled = true;
+        });
+      } else {
+        setState(() {
+          emailFilled = false;
+        });
+      }
+    });
+
+    _passwordController.addListener(() {
+      if (_passwordController.text.isNotEmpty) {
+        setState(() {
+          passwordFilled = true;
+        });
+      } else {
+        passwordFilled = false;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.primaryWhite,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Text(
+                    AppStrings.signUp,
+                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 30),
+                  ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20.0, bottom: 20),
+                        child: AppTextFormFields(
+                          fill: AppColors.textFieldGray,
+                          leading: Icon(
+                            Icons.email,
+                            color: AppColors.primaryAsh,
+                          ),
+                          controller: _emailController,
+                          hintText: AppStrings.email,
+                        ),
+                      ),
+                      AppTextFormFields(
+                        fill: AppColors.textFieldGray,
+                        leading: Icon(
+                          Icons.password,
+                          color: AppColors.primaryAsh,
+                        ),
+                        obscureText: true,
+                        controller: _passwordController,
+                        hintText: AppStrings.password,
+                      ),
+                      SizedBox(
+                        width: 350,
+                        child: Text(
+                          signUpErrorMessage,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(color: AppColors.primaryRed),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: AppButton(
+                          textColor: AppColors.black,
+                          buttonName: AppStrings.createAccount,
+                          onclick:
+                              (emailFilled && passwordFilled)
+                                  ? () {
+                                    _createAccount();
+                                  }
+                                  : () {
+                                    null;
+                                  },
+                          backgroundColor:
+                              (emailFilled && passwordFilled)
+                                  ? AppColors.primaryGreen
+                                  : AppColors.primaryAsh,
+                        ),
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          text: AppStrings.alreadyHaveAnAccount,
+                          style: TextStyle(color: Colors.black, fontSize: 12),
+                          children: [
+                            TextSpan(
+                              recognizer:
+                                  TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Navigator.of(context).pushNamed("login");
+                                    },
+                              text: AppStrings.login,
+                              style: TextStyle(
+                                color: AppColors.deepGreen,
+
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 250.0, left: 20),
+                        child: Text(
+                          AppStrings.oneStepCloser,
+                          style: TextStyle(fontSize: 50, height: 0.9),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _createAccount() async {
+    try {
+      final auth = FirebaseAuth.instance;
+      await auth.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      Navigator.of(context).pushNamed("setUserName");
+    } on FirebaseAuthException catch (error) {
+      String errorMessage;
+      if (error.code == 'email-already-in-use') {
+        errorMessage = 'This email is already registered.';
+      } else if (error.code == 'invalid-email') {
+        errorMessage = 'Please enter a valid email address.';
+      } else if (error.code == 'weak-password') {
+        errorMessage = 'Password must be at least 6 characters.';
+      } else {
+        errorMessage = 'Something went wrong. Please try again.';
+      }
+      setState(() {});
+      signUpErrorMessage = errorMessage;
+    }
+  }
+}

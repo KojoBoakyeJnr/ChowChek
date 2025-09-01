@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "75101244733",
+    "project_id": "chowchek-f672c",
+    "storage_bucket": "chowchek-f672c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:75101244733:android:6056841cbb72d6d2898954",
+        "android_client_info": {
+          "package_name": "com.example.chowchek"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "75101244733-7p1mu9gjhcrq3d0br73q70sic2n7p8op.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBydsIyfu4wFQQqppmqwav4MzHMWRICam8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "75101244733-7p1mu9gjhcrq3d0br73q70sic2n7p8op.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "75101244733-3m1mj29bc9q1jcr6ei33cctbjejbl7sl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.chowchek"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
