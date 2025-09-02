@@ -5,9 +5,10 @@ import 'package:chowchek/utils/app_text_form_fields.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthPageLogin extends StatefulWidget {
-  AuthPageLogin({super.key});
+  const AuthPageLogin({super.key});
 
   @override
   State<AuthPageLogin> createState() => _AuthPageLoginState();
@@ -45,6 +46,11 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
         passwordFilled = false;
       }
     });
+  }
+
+  void setLoginStatus() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool("isLoggedIn", true);
   }
 
   @override
@@ -105,6 +111,7 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
                               (emailFilled && passwordFilled)
                                   ? () {
                                     _verifyAccount();
+                                    setLoginStatus();
                                   }
                                   : () {
                                     null;
@@ -162,6 +169,7 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
         password: _passwordController.text.trim(),
       );
 
+      // ignore: use_build_context_synchronously
       Navigator.of(context).pushNamed("homePage");
     } on FirebaseAuthException catch (error) {
       String errorMessage;
