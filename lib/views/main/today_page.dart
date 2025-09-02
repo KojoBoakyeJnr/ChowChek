@@ -1,4 +1,5 @@
 import 'package:chowchek/endpoints/end_points.dart';
+import 'package:chowchek/models/nutrient_result.dart';
 import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_text_form_fields.dart';
@@ -34,7 +35,7 @@ class _TodayPageState extends State<TodayPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.only(top: 10.0, left: 50, right: 50),
+        padding: const EdgeInsets.only(top: 10.0, left: 20, right: 20),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,6 +75,11 @@ class _TodayPageState extends State<TodayPage> {
                         backgroundColor: AppColors.deepGreen,
                         textColor: AppColors.primaryWhite,
                       ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: NutrientResult(),
                     ),
                   ],
                 ),
