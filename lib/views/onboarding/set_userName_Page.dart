@@ -56,7 +56,11 @@ class _SetUsernameState extends State<SetUsername> {
                         textAlign: TextAlign.center,
                         AppStrings.whatName,
 
-                        style: TextStyle(fontSize: 50, height: 1),
+                        style: TextStyle(
+                          fontSize: 50,
+                          height: 1,
+                          color: AppColors.primaryWhite,
+                        ),
                       ),
                     ),
                     Padding(
@@ -80,8 +84,11 @@ class _SetUsernameState extends State<SetUsername> {
                     Navigator.of(context).pushNamed("setAverageDailyMealCount");
                   },
                   backgroundColor:
-                      (hasText) ? AppColors.deepGreen : AppColors.primaryAsh,
-                  textColor: AppColors.primaryWhite,
+                      (hasText) ? AppColors.primaryWhite : AppColors.primaryAsh,
+                  textColor:
+                      (hasText)
+                          ? AppColors.primaryGreen
+                          : AppColors.primaryWhite,
                 ),
               ),
             ],

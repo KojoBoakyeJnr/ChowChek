@@ -124,7 +124,7 @@ class _SetNutrientGoalState extends State<SetNutrientGoal> {
                       setLoginStatus();
                     },
                     backgroundColor: AppColors.primaryGreen,
-                    textColor: AppColors.black,
+                    textColor: AppColors.primaryWhite,
                   ),
                 ],
               ),

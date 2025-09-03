@@ -38,8 +38,8 @@ class _SplashScreenState extends State<SplashScreen> {
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: AppButton(
-                      textColor: AppColors.primaryWhite,
-                      backgroundColor: AppColors.deepGreen,
+                      textColor: AppColors.primaryGreen,
+                      backgroundColor: AppColors.primaryWhite,
                       buttonName: AppStrings.getstarted,
                       onclick: () {
                         (model.isLoggedIn)

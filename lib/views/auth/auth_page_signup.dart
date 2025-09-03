@@ -97,7 +97,7 @@ class _AuthPageSignupState extends State<AuthPageSignup> {
                       Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: AppButton(
-                          textColor: AppColors.black,
+                          textColor: AppColors.primaryWhite,
                           buttonName: AppStrings.createAccount,
                           onclick:
                               (emailFilled && passwordFilled)

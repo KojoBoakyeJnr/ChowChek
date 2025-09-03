@@ -105,7 +105,7 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
                       Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: AppButton(
-                          textColor: AppColors.black,
+                          textColor: AppColors.primaryWhite,
                           buttonName: AppStrings.continueButtontext,
                           onclick:
                               (emailFilled && passwordFilled)

@@ -35,14 +35,11 @@ class QuantitySelectorState extends State<QuantitySelector> {
         children: [
           MaterialButton(
             onPressed: () => decreaseQuantity(),
-            child: Icon(Icons.remove, color: AppColors.primaryAsh),
+            child: Icon(Icons.remove, color: AppColors.primaryWhite),
           ),
 
           Container(
-            decoration: BoxDecoration(
-              color: AppColors.deepGreen,
-              borderRadius: BorderRadius.circular(10),
-            ),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
             width: 70,
             height: 70,
             child: Center(
@@ -58,7 +55,7 @@ class QuantitySelectorState extends State<QuantitySelector> {
           ),
           MaterialButton(
             onPressed: () => increaseQuantity(),
-            child: Icon(Icons.add, color: AppColors.primaryAsh),
+            child: Icon(Icons.add, color: AppColors.primaryWhite),
           ),
         ],
       ),

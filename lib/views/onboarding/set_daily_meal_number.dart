@@ -41,7 +41,11 @@ class _SetDailyMealNumberState extends State<SetDailyMealNumber> {
                       padding: const EdgeInsets.all(20.0),
                       child: Text(
                         AppStrings.onAverageHowMany,
-                        style: TextStyle(fontSize: 50, height: 1),
+                        style: TextStyle(
+                          fontSize: 50,
+                          height: 1,
+                          color: AppColors.primaryWhite,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),
