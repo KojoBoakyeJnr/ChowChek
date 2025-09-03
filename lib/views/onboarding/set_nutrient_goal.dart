@@ -77,7 +77,7 @@ class _SetNutrientGoalState extends State<SetNutrientGoal> {
                                   TextSpan(
                                     text: model.userName,
                                     style: const TextStyle(
-                                      fontWeight: FontWeight.w800,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ],

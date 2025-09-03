@@ -8,6 +8,7 @@ import 'package:chowchek/views/main/home_page.dart';
 import 'package:chowchek/views/onboarding/set_daily_meal_number.dart';
 import 'package:chowchek/views/onboarding/set_nutrient_goal.dart';
 import 'package:chowchek/views/onboarding/set_userName_Page.dart';
+import 'package:chowchek/views/updates/update_nutrient_limits.dart';
 import 'package:chowchek/views/welcome/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
         "setAverageDailyMealCount": (context) => SetDailyMealNumber(),
         "homePage": (context) => HomePage(),
         "nutrientGoal": (context) => SetNutrientGoal(),
+        "updateNutrientGoal": (context) => UpdateNutrientLimits(),
       },
     );
   }

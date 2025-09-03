@@ -1,3 +1,4 @@
+import 'package:chowchek/models/drawer_view.dart';
 import 'package:chowchek/providers/user_details_provider.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/views/main/blacklist_page.dart';
@@ -22,11 +23,6 @@ class _HomePageState extends State<HomePage> {
     Provider.of<UserDetailsProvider>(context, listen: false).loadAllFromPrefs();
   }
 
-  void setLoginStatus() async {
-    final SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setBool("isLoggedIn", false);
-  }
-
   List pages = [TodayPage(), SavedPage(), BlacklistPage()];
   int currentPage = 0;
   @override
@@ -37,20 +33,7 @@ class _HomePageState extends State<HomePage> {
             appBar: AppBar(
               // title: StreakBanner(), centerTitle: true
             ),
-            drawer: Drawer(
-              child: ListView(
-                children: [
-                  ListTile(
-                    onTap: () {
-                      setLoginStatus();
-                      Navigator.of(context).pushNamed("login");
-                    },
-                    leading: Icon(Icons.logout, color: Colors.red),
-                    title: Text("Logout", style: TextStyle(color: Colors.red)),
-                  ),
-                ],
-              ),
-            ),
+            drawer: DrawerView(),
             bottomNavigationBar: BottomNavigationBar(
               selectedLabelStyle: TextStyle(
                 fontWeight: FontWeight.w800,

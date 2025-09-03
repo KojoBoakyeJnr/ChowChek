@@ -7,7 +7,6 @@ import 'package:chowchek/models/meal_log.dart';
 
 import 'package:chowchek/models/nutrient_result_container.dart';
 import 'package:chowchek/providers/nutrient_check_provider.dart';
-import 'package:chowchek/providers/saved_meals_provider.dart';
 import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_text_form_fields.dart';
@@ -15,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TodayPage extends StatefulWidget {
   const TodayPage({super.key});

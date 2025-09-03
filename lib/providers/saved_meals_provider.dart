@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:chowchek/providers/nutrient_check_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

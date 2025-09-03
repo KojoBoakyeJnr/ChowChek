@@ -22,7 +22,10 @@ class AppStrings {
   static const String dailyAverageExplainer =
       "We'll use this to help break your goals into per-meal guidance.";
   static const String finish = "Finish";
+  static const String update = "Update";
   static const String setDailyNutrientsLimit = "Set Daily Nutrient Limits";
+  static const String updateDailyNutrientsLimit =
+      "Update Daily Nutrient Limits";
   static const String customizeYourDaily =
       "Customize your daily intake goals for better tracking.\nYou can change these anytime.";
 }
