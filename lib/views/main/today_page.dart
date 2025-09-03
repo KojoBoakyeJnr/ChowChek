@@ -66,9 +66,7 @@ class _TodayPageState extends State<TodayPage> {
 
     Future.delayed(Duration(seconds: 5), () {
       setState(() {
-        setState(() {
-          resultsNotFoundBannerOff = true;
-        });
+        resultsNotFoundBannerOff = true;
       });
     });
 
@@ -147,7 +145,11 @@ class _TodayPageState extends State<TodayPage> {
 
                         (resultsFound)
                             ? Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: const EdgeInsets.only(
+                                top: 20.0,
+                                left: 10,
+                                right: 10,
+                              ),
                               child: NutrientResult(),
                             )
                             : (!resultsFound && !resultsNotFoundBannerOff)
