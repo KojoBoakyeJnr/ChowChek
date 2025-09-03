@@ -1,3 +1,4 @@
+import 'package:chowchek/models/loading_dialog.dart';
 import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_strings.dart';
@@ -109,8 +110,9 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
                           buttonName: AppStrings.continueButtontext,
                           onclick:
                               (emailFilled && passwordFilled)
-                                  ? () {
+                                  ? () async {
                                     _verifyAccount();
+
                                     setLoginStatus();
                                   }
                                   : () {
@@ -163,6 +165,7 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
 
   void _verifyAccount() async {
     try {
+      LoadingDialog().show(context);
       final auth = FirebaseAuth.instance;
       await auth.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
@@ -206,6 +209,7 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
       setState(() {
         loginErrorMessage = errorMessage;
       });
+      LoadingDialog().pop(context);
     }
   }
 }

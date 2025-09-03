@@ -12,10 +12,10 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   @override
   @override
   void initState() {
@@ -25,6 +25,13 @@ class _HomePageState extends State<HomePage> {
 
   List pages = [TodayPage(), SavedPage(), BlacklistPage()];
   int currentPage = 0;
+
+  void changePage(int pageNum) {
+    setState(() {
+      currentPage = pageNum;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<UserDetailsProvider>(

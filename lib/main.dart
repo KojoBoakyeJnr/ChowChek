@@ -16,6 +16,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
+final GlobalKey<HomePageState> homePageKey = GlobalKey<HomePageState>();
 void main() async {
   await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
         "signUp": (context) => AuthPageSignup(),
         "setUserName": (context) => SetUsername(),
         "setAverageDailyMealCount": (context) => SetDailyMealNumber(),
-        "homePage": (context) => HomePage(),
+        "homePage": (context) => HomePage(key: homePageKey),
         "nutrientGoal": (context) => SetNutrientGoal(),
         "updateNutrientGoal": (context) => UpdateNutrientLimits(),
       },

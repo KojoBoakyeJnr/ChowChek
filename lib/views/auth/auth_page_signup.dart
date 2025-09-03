@@ -1,3 +1,4 @@
+import 'package:chowchek/models/loading_dialog.dart';
 import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_strings.dart';
@@ -154,6 +155,7 @@ class _AuthPageSignupState extends State<AuthPageSignup> {
 
   void _createAccount() async {
     try {
+      LoadingDialog().show(context);
       final auth = FirebaseAuth.instance;
       await auth.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
@@ -174,5 +176,6 @@ class _AuthPageSignupState extends State<AuthPageSignup> {
       setState(() {});
       signUpErrorMessage = errorMessage;
     }
+    LoadingDialog().pop(context);
   }
 }

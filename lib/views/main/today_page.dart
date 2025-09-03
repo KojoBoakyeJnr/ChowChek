@@ -1,11 +1,11 @@
 // ignore_for_file: unused_local_variable
 
 import 'dart:convert';
-
 import 'package:chowchek/endpoints/end_points.dart';
+import 'package:chowchek/models/loading_dialog.dart';
 import 'package:chowchek/models/meal_log.dart';
-
 import 'package:chowchek/models/nutrient_result_container.dart';
+import 'package:chowchek/models/results_empty_state.dart';
 import 'package:chowchek/providers/nutrient_check_provider.dart';
 import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
@@ -35,8 +35,11 @@ class _TodayPageState extends State<TodayPage> {
     double sugar = 0;
     double cholestrol = 0;
     String mainFoodName = "";
+
     var response = await fetchNutrientData();
+
     List nutritionInfo = jsonDecode(response.body);
+
     for (var meal in nutritionInfo) {
       foodName.add(meal["name"]);
       totalFat += meal["fat_total_g"] ?? 0;
@@ -106,11 +109,13 @@ class _TodayPageState extends State<TodayPage> {
                             buttonName: "Chek!",
                             onclick: () async {
                               if (_query.text.isNotEmpty) {
+                                LoadingDialog().show(context);
                                 final meal = await _getAndStoreNutritionData();
                                 Provider.of<NutrientCheckProvider>(
                                   context,
                                   listen: false,
                                 ).setMeal(meal);
+                                LoadingDialog().pop(context);
                               }
                             },
                             backgroundColor: AppColors.deepGreen,
@@ -128,7 +133,7 @@ class _TodayPageState extends State<TodayPage> {
                                   padding: const EdgeInsets.only(top: 20.0),
                                   child: NutrientResult(),
                                 )
-                                : SizedBox.shrink();
+                                : ResultsEmptyState();
                           },
                         ),
                       ],
