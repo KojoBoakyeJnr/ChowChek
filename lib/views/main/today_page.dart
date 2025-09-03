@@ -23,6 +23,8 @@ class TodayPage extends StatefulWidget {
 }
 
 TextEditingController _query = TextEditingController();
+bool resultsFound = false;
+bool resultsNotFoundBannerOff = true;
 
 final apiKey = dotenv.env['API_KEY'];
 
@@ -50,6 +52,25 @@ class _TodayPageState extends State<TodayPage> {
     }
     String combinationName = foodName.join(" + ");
     mainFoodName = combinationName;
+
+    if (nutritionInfo.isEmpty) {
+      setState(() {
+        resultsFound = false;
+        resultsNotFoundBannerOff = false;
+      });
+    } else {
+      setState(() {
+        resultsFound = true;
+      });
+    }
+
+    Future.delayed(Duration(seconds: 5), () {
+      setState(() {
+        setState(() {
+          resultsNotFoundBannerOff = true;
+        });
+      });
+    });
 
     return MealLog(
       combinationName: combinationName,
@@ -115,6 +136,7 @@ class _TodayPageState extends State<TodayPage> {
                                   context,
                                   listen: false,
                                 ).setMeal(meal);
+
                                 LoadingDialog().pop(context);
                               }
                             },
@@ -123,19 +145,14 @@ class _TodayPageState extends State<TodayPage> {
                           ),
                         ),
 
-                        Consumer<NutrientCheckProvider>(
-                          builder: (context, modelNutrients, child) {
-                            return (modelNutrients
-                                        .providerMealDetails
-                                        .combinationName !=
-                                    "")
-                                ? Padding(
-                                  padding: const EdgeInsets.only(top: 20.0),
-                                  child: NutrientResult(),
-                                )
-                                : ResultsEmptyState();
-                          },
-                        ),
+                        (resultsFound)
+                            ? Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: NutrientResult(),
+                            )
+                            : (!resultsFound && !resultsNotFoundBannerOff)
+                            ? ResultsEmptyState()
+                            : Container(),
                       ],
                     ),
                   ],

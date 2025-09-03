@@ -49,7 +49,6 @@ class BlacklistSaveButtons extends StatelessWidget {
                         "blacklistedMeals",
                         jsonEncode(blacklistedList),
                       );
-                      homePageKey.currentState?.changePage(2);
                     },
                     icon: Text("❌", style: TextStyle(fontSize: 20)),
 
@@ -78,8 +77,6 @@ class BlacklistSaveButtons extends StatelessWidget {
                         ).savedMeals;
 
                     await pref.setString("savedMeals", jsonEncode(savedList));
-
-                    homePageKey.currentState?.changePage(1);
                   },
                   icon: Text("💚", style: TextStyle(fontSize: 20)),
                   tooltip: "Save meal",
