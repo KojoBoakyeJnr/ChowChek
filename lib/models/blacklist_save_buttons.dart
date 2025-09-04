@@ -29,31 +29,37 @@ class BlacklistSaveButtons extends StatelessWidget {
                   ),
                   child: IconButton(
                     onPressed: () async {
+                      //add meal to blacklisted list
+                      Provider.of<BlacklistedMealsProvider>(
+                        context,
+                        listen: false,
+                      ).addMealToBlacklisted(
+                        modelNutrients.providerMealDetails.toMap(),
+                      );
+
+                      //add current state of saved list to another temporal list to encode
+                      final blacklistedList =
+                          Provider.of<BlacklistedMealsProvider>(
+                            context,
+                            listen: false,
+                          ).blacklistedMeals;
+
+                      //instantiate shared pref
+                      final SharedPreferences pref =
+                          await SharedPreferences.getInstance();
+
+                      //add decoded current state stringified to pref
+                      pref.setString(
+                        "blacklistedMeals",
+                        jsonEncode(blacklistedList),
+                      );
+
+                      //display snack bar
                       ScaffoldMessenger.of(context).showSnackBar(
                         CustomSnackBar(
                           content: "meal has been blacklisted",
                           backgroundColor: Colors.red,
                         ).show(),
-                      );
-                      Provider.of<BlacklistedMealsProvider>(
-                        context,
-                        listen: false,
-                      ).blacklistedMeals.add(
-                        modelNutrients.providerMealDetails.toMap(),
-                      );
-
-                      final blacklistedList =
-                          Provider.of<BlacklistedMealsProvider>(
-                            // ignore: use_build_context_synchronously
-                            context,
-                            listen: false,
-                          ).blacklistedMeals;
-
-                      final SharedPreferences pref =
-                          await SharedPreferences.getInstance();
-                      pref.setString(
-                        "blacklistedMeals",
-                        jsonEncode(blacklistedList),
                       );
                     },
                     icon: Text("❌", style: TextStyle(fontSize: 20)),
@@ -70,25 +76,35 @@ class BlacklistSaveButtons extends StatelessWidget {
                 ),
                 child: IconButton(
                   onPressed: () async {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      CustomSnackBar(
-                        content: "added to saved meals",
-                        backgroundColor: AppColors.primaryGreen,
-                      ).show(),
+                    //add meal to saved list
+                    Provider.of<SavedMealsProvider>(
+                      context,
+                      listen: false,
+                    ).addMealToSaved(
+                      modelNutrients.providerMealDetails.toMap(),
                     );
-                    Provider.of<SavedMealsProvider>(context, listen: false)
-                        .savedMeals
-                        .add(modelNutrients.providerMealDetails.toMap());
 
-                    final SharedPreferences pref =
-                        await SharedPreferences.getInstance();
+                    //add current state of saved list to another temporal list to encode
                     final savedList =
                         Provider.of<SavedMealsProvider>(
                           context,
                           listen: false,
                         ).savedMeals;
 
-                    await pref.setString("savedMeals", jsonEncode(savedList));
+                    //instantiate shared pref
+                    final SharedPreferences pref =
+                        await SharedPreferences.getInstance();
+
+                    //add decoded current state stringified to pref
+                    pref.setString("savedMeals", jsonEncode(savedList));
+
+                    //display snack bar
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      CustomSnackBar(
+                        content: "added to saved meals",
+                        backgroundColor: AppColors.primaryGreen,
+                      ).show(),
+                    );
                   },
                   icon: Text("💚", style: TextStyle(fontSize: 20)),
                   tooltip: "Save meal",

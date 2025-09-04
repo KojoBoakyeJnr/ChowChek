@@ -21,5 +21,16 @@ class SavedMealsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addMealToSaved(Map meal) {
+    savedMeals.add(meal);
+  }
+
+  void removeMealFromSaved(int index) async {
+    savedMeals.removeAt(index);
+    notifyListeners();
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString("savedMeals", jsonEncode(savedMeals));
+  }
+
   List<Map> savedMeals = [];
 }

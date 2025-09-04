@@ -8,8 +8,9 @@ class BlacklistedMealTile extends StatelessWidget {
   final double sugar;
   final double salt;
   final double cholestrol;
+  Widget delete;
 
-  const BlacklistedMealTile({
+  BlacklistedMealTile({
     super.key,
     required this.mealName,
     required this.totalFat,
@@ -17,6 +18,7 @@ class BlacklistedMealTile extends StatelessWidget {
     required this.sugar,
     required this.salt,
     required this.cholestrol,
+    required this.delete,
   });
 
   @override
@@ -32,14 +34,22 @@ class BlacklistedMealTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Meal Name
-          Text(
-            mealName,
-            style: const TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              letterSpacing: 0.5,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Text(
+                  mealName,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ),
+              delete,
+            ],
           ),
           const SizedBox(height: 12),
 

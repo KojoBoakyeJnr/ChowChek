@@ -21,5 +21,16 @@ class BlacklistedMealsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addMealToBlacklisted(Map meal) {
+    blacklistedMeals.add(meal);
+  }
+
+  void removeMealFromBlacklisted(int index) async {
+    blacklistedMeals.removeAt(index);
+    notifyListeners();
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString("blacklistedMeals", jsonEncode(blacklistedMeals));
+  }
+
   List<Map> blacklistedMeals = [];
 }

@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:chowchek/models/blacklisted_meal_tile.dart';
 import 'package:chowchek/providers/blacklisted_meals_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BlacklistPage extends StatefulWidget {
   const BlacklistPage({super.key});
@@ -12,16 +15,6 @@ class BlacklistPage extends StatefulWidget {
 
 class _BlacklistPageState extends State<BlacklistPage> {
   @override
-  void initState() {
-    super.initState();
-    () async {
-      await Provider.of<BlacklistedMealsProvider>(
-        context,
-      ).loadBlacklistedMealsFromPrefs();
-    };
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Consumer<BlacklistedMealsProvider>(
       builder:
@@ -30,6 +23,15 @@ class _BlacklistPageState extends State<BlacklistPage> {
               itemCount: model.blacklistedMeals.length,
               itemBuilder: (context, int index) {
                 return BlacklistedMealTile(
+                  delete: IconButton(
+                    onPressed: () {
+                      Provider.of<BlacklistedMealsProvider>(
+                        context,
+                        listen: false,
+                      ).removeMealFromBlacklisted(index);
+                    },
+                    icon: Icon(Icons.delete, color: Colors.yellow),
+                  ),
                   mealName: model.blacklistedMeals[index]["combinationName"],
                   totalFat: model.blacklistedMeals[index]["totalFat"],
                   saturatedFat: model.blacklistedMeals[index]["saturatedFat"],

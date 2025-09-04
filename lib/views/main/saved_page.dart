@@ -5,20 +5,11 @@ import 'package:provider/provider.dart';
 
 class SavedPage extends StatefulWidget {
   const SavedPage({super.key});
-
   @override
   State<SavedPage> createState() => _SavedPageState();
 }
 
 class _SavedPageState extends State<SavedPage> {
-  @override
-  void initState() {
-    super.initState();
-    () async {
-      await Provider.of<SavedMealsProvider>(context).loadSavedMealsFromPrefs();
-    };
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer<SavedMealsProvider>(
@@ -28,6 +19,18 @@ class _SavedPageState extends State<SavedPage> {
               itemCount: model.savedMeals.length,
               itemBuilder: (context, int index) {
                 return SavedMealTile(
+                  remove: IconButton(
+                    onPressed: () {
+                      Provider.of<SavedMealsProvider>(
+                        context,
+                        listen: false,
+                      ).removeMealFromSaved(index);
+                    },
+                    icon: Icon(
+                      Icons.delete,
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                    ),
+                  ),
                   mealName: model.savedMeals[index]["combinationName"],
                   totalFat: model.savedMeals[index]["totalFat"],
                   saturatedFat: model.savedMeals[index]["saturatedFat"],

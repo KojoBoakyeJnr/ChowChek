@@ -9,8 +9,9 @@ class SavedMealTile extends StatelessWidget {
   final double sugar;
   final double salt;
   final double cholestrol;
+  Widget remove;
 
-  const SavedMealTile({
+  SavedMealTile({
     super.key,
     required this.mealName,
     required this.totalFat,
@@ -18,6 +19,7 @@ class SavedMealTile extends StatelessWidget {
     required this.sugar,
     required this.salt,
     required this.cholestrol,
+    required this.remove,
   });
 
   @override
@@ -33,14 +35,22 @@ class SavedMealTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Meal Name
-          Text(
-            mealName,
-            style: const TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              letterSpacing: 0.5,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Text(
+                  mealName,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ),
+              remove,
+            ],
           ),
           const SizedBox(height: 12),
 

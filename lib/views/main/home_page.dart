@@ -18,7 +18,6 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   @override
-  @override
   void initState() {
     super.initState();
     Provider.of<UserDetailsProvider>(context, listen: false).loadAllFromPrefs();
@@ -55,14 +54,6 @@ class HomePageState extends State<HomePage> {
               currentIndex: currentPage,
 
               onTap: (value) {
-                () async {
-                  await Provider.of<BlacklistedMealsProvider>(
-                    context,
-                  ).loadBlacklistedMealsFromPrefs();
-                  await Provider.of<SavedMealsProvider>(
-                    context,
-                  ).loadSavedMealsFromPrefs();
-                };
                 setState(() {
                   currentPage = value;
                 });

@@ -54,20 +54,26 @@ class _TodayPageState extends State<TodayPage> {
     mainFoodName = combinationName;
 
     if (nutritionInfo.isEmpty) {
-      setState(() {
-        resultsFound = false;
-        resultsNotFoundBannerOff = false;
-      });
+      (mounted)
+          ? setState(() {
+            resultsFound = false;
+            resultsNotFoundBannerOff = false;
+          })
+          : null;
     } else {
-      setState(() {
-        resultsFound = true;
-      });
+      (mounted)
+          ? setState(() {
+            resultsFound = true;
+          })
+          : null;
     }
 
     Future.delayed(Duration(seconds: 5), () {
-      setState(() {
-        resultsNotFoundBannerOff = true;
-      });
+      (mounted)
+          ? setState(() {
+            resultsNotFoundBannerOff = true;
+          })
+          : null;
     });
 
     return MealLog(
