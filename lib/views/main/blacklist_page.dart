@@ -14,13 +14,11 @@ class _BlacklistPageState extends State<BlacklistPage> {
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<BlacklistedMealsProvider>(
+    () async {
+      await Provider.of<BlacklistedMealsProvider>(
         context,
-        listen: false,
       ).loadBlacklistedMealsFromPrefs();
-    });
+    };
   }
 
   @override

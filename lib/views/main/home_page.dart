@@ -1,4 +1,6 @@
 import 'package:chowchek/models/drawer_view.dart';
+import 'package:chowchek/providers/blacklisted_meals_provider.dart';
+import 'package:chowchek/providers/saved_meals_provider.dart';
 import 'package:chowchek/providers/user_details_provider.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/views/main/blacklist_page.dart';
@@ -6,7 +8,6 @@ import 'package:chowchek/views/main/saved_page.dart';
 import 'package:chowchek/views/main/today_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -53,10 +54,19 @@ class HomePageState extends State<HomePage> {
               selectedItemColor: AppColors.deepGreen,
               currentIndex: currentPage,
 
-              onTap:
-                  (value) => setState(() {
-                    currentPage = value;
-                  }),
+              onTap: (value) {
+                () async {
+                  await Provider.of<BlacklistedMealsProvider>(
+                    context,
+                  ).loadBlacklistedMealsFromPrefs();
+                  await Provider.of<SavedMealsProvider>(
+                    context,
+                  ).loadSavedMealsFromPrefs();
+                };
+                setState(() {
+                  currentPage = value;
+                });
+              },
 
               items: [
                 BottomNavigationBarItem(

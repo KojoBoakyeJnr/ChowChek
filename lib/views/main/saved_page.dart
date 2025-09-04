@@ -14,13 +14,9 @@ class _SavedPageState extends State<SavedPage> {
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<SavedMealsProvider>(
-        context,
-        listen: false,
-      ).loadSavedMealsFromPrefs();
-    });
+    () async {
+      await Provider.of<SavedMealsProvider>(context).loadSavedMealsFromPrefs();
+    };
   }
 
   @override

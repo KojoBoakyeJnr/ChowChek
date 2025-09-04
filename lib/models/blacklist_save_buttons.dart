@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'package:chowchek/main.dart';
+import 'package:chowchek/models/custom_snackbar.dart';
 import 'package:chowchek/providers/blacklisted_meals_provider.dart';
 import 'package:chowchek/providers/nutrient_check_provider.dart';
 import 'package:chowchek/providers/saved_meals_provider.dart';
 import 'package:chowchek/utils/app_colors.dart';
-import 'package:chowchek/views/main/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,6 +29,12 @@ class BlacklistSaveButtons extends StatelessWidget {
                   ),
                   child: IconButton(
                     onPressed: () async {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        CustomSnackBar(
+                          content: "meal has been blacklisted",
+                          backgroundColor: Colors.red,
+                        ).show(),
+                      );
                       Provider.of<BlacklistedMealsProvider>(
                         context,
                         listen: false,
@@ -37,15 +42,16 @@ class BlacklistSaveButtons extends StatelessWidget {
                         modelNutrients.providerMealDetails.toMap(),
                       );
 
-                      final SharedPreferences pref =
-                          await SharedPreferences.getInstance();
                       final blacklistedList =
                           Provider.of<BlacklistedMealsProvider>(
+                            // ignore: use_build_context_synchronously
                             context,
                             listen: false,
                           ).blacklistedMeals;
 
-                      await pref.setString(
+                      final SharedPreferences pref =
+                          await SharedPreferences.getInstance();
+                      pref.setString(
                         "blacklistedMeals",
                         jsonEncode(blacklistedList),
                       );
@@ -64,6 +70,12 @@ class BlacklistSaveButtons extends StatelessWidget {
                 ),
                 child: IconButton(
                   onPressed: () async {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      CustomSnackBar(
+                        content: "added to saved meals",
+                        backgroundColor: AppColors.primaryGreen,
+                      ).show(),
+                    );
                     Provider.of<SavedMealsProvider>(context, listen: false)
                         .savedMeals
                         .add(modelNutrients.providerMealDetails.toMap());
