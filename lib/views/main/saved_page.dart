@@ -1,3 +1,4 @@
+import 'package:chowchek/models/remove_confirmation_saved.dart';
 import 'package:chowchek/models/saved_meal_tile.dart';
 import 'package:chowchek/providers/saved_meals_provider.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +22,7 @@ class _SavedPageState extends State<SavedPage> {
                 return SavedMealTile(
                   remove: IconButton(
                     onPressed: () {
-                      Provider.of<SavedMealsProvider>(
-                        context,
-                        listen: false,
-                      ).removeMealFromSaved(index);
+                      RemoveConfirmationSaved(index: index).show(context);
                     },
                     icon: Icon(
                       Icons.delete,
