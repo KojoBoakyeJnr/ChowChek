@@ -59,7 +59,7 @@ class _NutrientRowState extends State<NutrientRow> {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: widget.pillColor ?? Colors.green.shade100,
+                    color: widget.pillColor,
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: Text(

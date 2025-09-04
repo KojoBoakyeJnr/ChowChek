@@ -1,7 +1,9 @@
 import 'package:chowchek/models/nutrient_tile.dart';
+import 'package:chowchek/providers/user_details_provider.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_images.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class NutrientMeter extends StatefulWidget {
   const NutrientMeter({super.key});
@@ -13,6 +15,7 @@ class NutrientMeter extends StatefulWidget {
 var rating = 10.0;
 
 class _NutrientMeterState extends State<NutrientMeter> {
+  @override
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +29,11 @@ class _NutrientMeterState extends State<NutrientMeter> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           NutrientTile(
-            defaultValue: 140,
+            defaultValue:
+                (Provider.of<UserDetailsProvider>(
+                  context,
+                ).nutrientLoggedLimits["Total Fat"]) ??
+                140,
             activeColor: Colors.amber,
             divisions: 10,
             imagePath: AppImages.totalFat,
@@ -36,7 +43,11 @@ class _NutrientMeterState extends State<NutrientMeter> {
             unit: "g",
           ),
           NutrientTile(
-            defaultValue: 40,
+            defaultValue:
+                (Provider.of<UserDetailsProvider>(
+                  context,
+                ).nutrientLoggedLimits["Sat. Fat"]) ??
+                40,
             activeColor: Colors.blue,
             divisions: 10,
             imagePath: AppImages.saturatedFat,
@@ -46,7 +57,11 @@ class _NutrientMeterState extends State<NutrientMeter> {
             unit: "g",
           ),
           NutrientTile(
-            defaultValue: 4600,
+            defaultValue:
+                (Provider.of<UserDetailsProvider>(
+                  context,
+                ).nutrientLoggedLimits["Sodium"]) ??
+                4600,
             activeColor: Colors.black,
             divisions: 10,
             imagePath: AppImages.salt,
@@ -56,7 +71,11 @@ class _NutrientMeterState extends State<NutrientMeter> {
             unit: "mg",
           ),
           NutrientTile(
-            defaultValue: 50,
+            defaultValue:
+                (Provider.of<UserDetailsProvider>(
+                  context,
+                ).nutrientLoggedLimits["Sugar"]) ??
+                50,
             activeColor: Colors.brown,
             divisions: 10,
             imagePath: AppImages.sugar,
@@ -66,7 +85,11 @@ class _NutrientMeterState extends State<NutrientMeter> {
             unit: "g",
           ),
           NutrientTile(
-            defaultValue: 600,
+            defaultValue:
+                (Provider.of<UserDetailsProvider>(
+                  context,
+                ).nutrientLoggedLimits["Cholesterol"]) ??
+                600,
             activeColor: Colors.red,
             divisions: 10,
             imagePath: AppImages.cholestrol,
