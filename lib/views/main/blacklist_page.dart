@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:chowchek/models/blacklisted_meal_tile.dart';
 import 'package:chowchek/models/remove_confirmation_blacklist.dart';
 import 'package:chowchek/providers/blacklisted_meals_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BlacklistPage extends StatefulWidget {
   const BlacklistPage({super.key});
