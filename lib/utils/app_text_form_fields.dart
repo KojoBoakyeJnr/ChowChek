@@ -29,7 +29,7 @@ class _AppTextFormFieldsState extends State<AppTextFormFields> {
       height: 60,
       child: TextFormField(
         obscureText: widget.obscureText,
-        cursorColor: const Color.fromARGB(255, 144, 177, 234),
+        cursorColor: AppColors.primaryGreen,
         controller: widget.controller,
         style: TextStyle(
           color: AppColors.black,
@@ -41,10 +41,7 @@ class _AppTextFormFieldsState extends State<AppTextFormFields> {
           prefixIcon: widget.leading,
           enabled: true,
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              width: 2.0,
-              color: const Color.fromARGB(255, 144, 177, 234),
-            ),
+            borderSide: BorderSide(width: 2.0, color: AppColors.primaryGreen),
           ),
 
           filled: true,

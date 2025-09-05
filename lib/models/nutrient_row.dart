@@ -1,4 +1,5 @@
 import 'package:chowchek/providers/nutrient_check_provider.dart';
+import 'package:chowchek/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +16,7 @@ class NutrientRow extends StatefulWidget {
     required this.label,
     required this.amount,
     required this.percentage,
-    this.pillColor = Colors.green,
+    required this.pillColor,
   });
 
   @override
@@ -31,7 +32,7 @@ class _NutrientRowState extends State<NutrientRow> {
             margin: const EdgeInsets.symmetric(vertical: 6),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.primaryWhite,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(

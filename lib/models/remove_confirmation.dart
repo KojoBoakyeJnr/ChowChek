@@ -1,11 +1,11 @@
-import 'package:chowchek/providers/blacklisted_meals_provider.dart';
 import 'package:chowchek/utils/app_colors.dart';
+import 'package:chowchek/utils/app_strings.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class RemoveConfirmationBlacklist {
-  int index;
-  RemoveConfirmationBlacklist({required this.index});
+class RemoveConfirmation {
+  final int index;
+  final VoidCallback remove;
+  RemoveConfirmation({required this.index, required this.remove});
 
   show(BuildContext context) {
     showDialog(
@@ -26,7 +26,7 @@ class RemoveConfirmationBlacklist {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Are you sure about this?",
+                    AppStrings.areYouSure,
                     style: TextStyle(fontWeight: FontWeight.w800),
                   ),
                 ),
@@ -48,7 +48,7 @@ class RemoveConfirmationBlacklist {
                             Navigator.of(context).pop();
                           },
                           child: Text(
-                            "no, not really🤔",
+                            AppStrings.noNotreally,
                             style: TextStyle(
                               color: AppColors.primaryWhite,
                               fontWeight: FontWeight.w800,
@@ -61,21 +61,18 @@ class RemoveConfirmationBlacklist {
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.red,
+                          color: AppColors.primaryRed,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         width: 150,
                         height: 50,
                         child: MaterialButton(
                           onPressed: () {
-                            Provider.of<BlacklistedMealsProvider>(
-                              context,
-                              listen: false,
-                            ).removeMealFromBlacklisted(index);
+                            remove();
                             Navigator.of(context).pop();
                           },
                           child: Text(
-                            "yes i am 👍🏾",
+                            AppStrings.yesIam,
                             style: TextStyle(
                               color: AppColors.primaryWhite,
                               fontWeight: FontWeight.w800,

@@ -12,4 +12,5 @@ class AppColors {
   static const Color amber = Colors.amber;
   static const Color blue = Colors.blue;
   static const Color brown = Colors.brown;
+  Color? lightRed = Colors.red[50];
 }

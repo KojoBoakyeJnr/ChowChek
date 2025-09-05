@@ -1,3 +1,5 @@
+import 'package:chowchek/utils/app_colors.dart';
+import 'package:chowchek/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class ResultsEmptyState extends StatelessWidget {
@@ -11,14 +13,17 @@ class ResultsEmptyState extends StatelessWidget {
         width: 350,
         height: 70,
         decoration: BoxDecoration(
-          color: Colors.red[50],
+          color: AppColors().lightRed,
           borderRadius: BorderRadiusDirectional.circular(10),
         ),
         child: Center(
           child: Text(
             textAlign: TextAlign.center,
-            style: TextStyle(fontStyle: FontStyle.italic, color: Colors.red),
-            "😢We couldn’t find that meal. Please check the spelling or try searching by ingredients.",
+            style: TextStyle(
+              fontStyle: FontStyle.italic,
+              color: AppColors.primaryRed,
+            ),
+            AppStrings.notFoundErrorMessage,
           ),
         ),
       ),

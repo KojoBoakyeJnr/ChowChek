@@ -1,5 +1,5 @@
 import 'package:chowchek/models/blacklisted_meal_tile.dart';
-import 'package:chowchek/models/remove_confirmation_blacklist.dart';
+import 'package:chowchek/models/remove_confirmation.dart';
 import 'package:chowchek/providers/blacklisted_meals_provider.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,15 @@ class _BlacklistPageState extends State<BlacklistPage> {
                 return BlacklistedMealTile(
                   delete: IconButton(
                     onPressed: () {
-                      RemoveConfirmationBlacklist(index: index).show(context);
+                      RemoveConfirmation(
+                        index: index,
+                        remove: () {
+                          Provider.of<BlacklistedMealsProvider>(
+                            context,
+                            listen: false,
+                          ).removeMealFromBlacklisted(index);
+                        },
+                      ).show(context);
                     },
                     icon: Icon(Icons.delete, color: AppColors.primaryWhite),
                   ),

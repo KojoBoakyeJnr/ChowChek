@@ -81,4 +81,9 @@ class AppStrings {
   static const String weakPassword = 'Password must be at least 6 characters.';
   static const String generic = 'Something went wrong. Please try again.';
   static const String guest = "Guest";
+  static const String notFoundErrorMessage =
+      "😢We couldn’t find that meal. Please check the spelling or try searching by ingredients.";
+  static const String areYouSure = "Are you sure about this?";
+  static const String noNotreally = "no, not really🤔";
+  static const String yesIam = "yes i am 👍🏾";
 }
