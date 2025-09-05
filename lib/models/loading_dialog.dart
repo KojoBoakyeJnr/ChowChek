@@ -6,7 +6,7 @@ class LoadingDialog {
     showDialog(
       useRootNavigator: true,
       context: context,
-      barrierDismissible: false, // prevents closing by tapping outside
+      barrierDismissible: false,
       builder: (context) {
         return Dialog(
           backgroundColor: AppColors.primaryWhite,
@@ -18,11 +18,11 @@ class LoadingDialog {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const SizedBox(
+                SizedBox(
                   width: 32,
                   height: 32,
                   child: CircularProgressIndicator(
-                    color: AppColors.deepGreen,
+                    color: AppColors.primaryGreen,
                     strokeWidth: 3,
                   ),
                 ),

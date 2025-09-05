@@ -38,7 +38,10 @@ class _BlacklistSaveButtonsState extends State<BlacklistSaveButtons> {
     final SharedPreferences pref = await SharedPreferences.getInstance();
 
     //add decoded current state (stringified) to pref
-    pref.setString(AppStrings.blacklistedMealsKey, jsonEncode(blacklistedList));
+    await pref.setString(
+      AppStrings.blacklistedMealsKey,
+      jsonEncode(blacklistedList),
+    );
 
     //display snack bar
     ScaffoldMessenger.of(context).showSnackBar(
@@ -66,7 +69,7 @@ class _BlacklistSaveButtonsState extends State<BlacklistSaveButtons> {
     final SharedPreferences pref = await SharedPreferences.getInstance();
 
     //add decoded current state stringified to pref
-    pref.setString(AppStrings.savedMealsKey, jsonEncode(savedList));
+    await pref.setString(AppStrings.savedMealsKey, jsonEncode(savedList));
 
     //display snack bar
     ScaffoldMessenger.of(context).showSnackBar(
@@ -82,12 +85,12 @@ class _BlacklistSaveButtonsState extends State<BlacklistSaveButtons> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        ChildButtons(
+        ChildButton(
           onButtonPressed: () => blacklistMeal(context),
           icon: AppStrings.blacklistIcon,
           tooltipMessage: AppStrings.blacklistMealTooltip,
         ),
-        ChildButtons(
+        ChildButton(
           onButtonPressed: () => saveMeal(context),
           icon: AppStrings.saveIcon,
           tooltipMessage: AppStrings.saveMealTooltip,
@@ -97,12 +100,11 @@ class _BlacklistSaveButtonsState extends State<BlacklistSaveButtons> {
   }
 }
 
-// ignore: must_be_immutable
-class ChildButtons extends StatelessWidget {
-  VoidCallback? onButtonPressed;
-  String icon;
-  String tooltipMessage;
-  ChildButtons({
+class ChildButton extends StatelessWidget {
+  final VoidCallback? onButtonPressed;
+  final String icon;
+  final String tooltipMessage;
+  const ChildButton({
     super.key,
     required this.onButtonPressed,
     required this.icon,
@@ -121,7 +123,7 @@ class ChildButtons extends StatelessWidget {
         ),
         child: IconButton(
           onPressed: onButtonPressed,
-          icon: Text(icon, style: TextStyle(fontSize: 20)),
+          icon: Text(icon, style: const TextStyle(fontSize: 20)),
           tooltip: tooltipMessage,
         ),
       ),
