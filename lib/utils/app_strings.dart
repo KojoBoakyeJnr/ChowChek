@@ -42,4 +42,17 @@ class AppStrings {
   static const String saveIcon = "💚";
   static const String updateNutrientLimits = "Update Nutrient Limit";
   static const String loginKey = "isLoggedIn";
+  static const String holdOn = "hold on...";
+  static const String totalfat = "Total Fat";
+  static const String satFat = "Sat. Fat";
+  static const String sugar = "Sugar";
+  static const String sodium = "Sodium";
+  static const String cholesterol = "Cholesterol";
+  static const String totalfatKey = "Total Fat";
+  static const String satFatKey = "Sat. Fat";
+  static const String sugarKey = "Sugar";
+  static const String sodiumKey = "Sodium";
+  static const String cholesterolKey = "Cholesterol";
+  static const String gramsUnit = "g";
+  static const String milligramsUnit = "mg";
 }

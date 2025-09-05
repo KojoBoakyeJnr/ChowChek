@@ -1,4 +1,5 @@
 import 'package:chowchek/utils/app_colors.dart';
+import 'package:chowchek/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class LoadingDialog {
@@ -28,7 +29,7 @@ class LoadingDialog {
                 ),
 
                 Text(
-                  "hold on...",
+                  AppStrings.holdOn,
                   style: TextStyle(
                     color: AppColors.primaryGreen,
                     fontSize: 16,

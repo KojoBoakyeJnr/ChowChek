@@ -9,4 +9,7 @@ class AppColors {
   static Color primaryRed = Colors.red;
   Color lightGreen = Color(0xFFD7F5DC);
   static const Color deepGreen = Colors.green;
+  static const Color amber = Colors.amber;
+  static const Color blue = Colors.blue;
+  static const Color brown = Colors.brown;
 }
