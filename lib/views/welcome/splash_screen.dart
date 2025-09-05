@@ -2,6 +2,7 @@ import 'package:chowchek/providers/user_details_provider.dart';
 import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_strings.dart';
+import 'package:chowchek/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,8 +44,10 @@ class _SplashScreenState extends State<SplashScreen> {
                       buttonName: AppStrings.getstarted,
                       onclick: () {
                         (model.isLoggedIn)
-                            ? Navigator.of(context).pushNamed("homePage")
-                            : Navigator.of(context).pushNamed("signUp");
+                            ? Navigator.of(
+                              context,
+                            ).pushNamed(AppRoutes.homePage)
+                            : Navigator.of(context).pushNamed(AppRoutes.signUp);
                       },
                     ),
                   ),

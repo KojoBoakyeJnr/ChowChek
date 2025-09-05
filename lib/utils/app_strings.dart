@@ -69,4 +69,12 @@ class AppStrings {
   static const String invalidCredential = 'Invalid credentials';
   static const String loginFailed = 'Login failed';
   static const String nutrientLimitKey = "nutrientLimits";
+  static const String usernameKey = "userName";
+  static const String usernameHintText = "Nickname";
+  static const String hello = "Hello?👋\n";
+  static const String mealNumberKey = "mealNumber";
+  static const String todayLabel = "Today";
+  static const String savedLabel = "Saved";
+  static const String blacklistLabel = "Blacklist";
+  static const String todayIcon = "📆";
 }

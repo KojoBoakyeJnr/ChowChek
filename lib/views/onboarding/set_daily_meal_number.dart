@@ -2,6 +2,7 @@ import 'package:chowchek/models/quantity_selector.dart';
 import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_strings.dart';
+import 'package:chowchek/utils/routes.dart';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +20,7 @@ final GlobalKey<QuantitySelectorState> mealNumber =
 void saveMealNumberToSharedPref() async {
   int avgMealNumber = mealNumber.currentState?.quantity ?? 3;
   final SharedPreferences pref = await SharedPreferences.getInstance();
-  pref.setInt("mealNumber", avgMealNumber);
+  pref.setInt(AppStrings.mealNumberKey, avgMealNumber);
 }
 
 class _SetDailyMealNumberState extends State<SetDailyMealNumber> {
@@ -70,7 +71,7 @@ class _SetDailyMealNumberState extends State<SetDailyMealNumber> {
                   buttonName: AppStrings.looksGood,
                   onclick: () {
                     saveMealNumberToSharedPref();
-                    Navigator.of(context).pushNamed("nutrientGoal");
+                    Navigator.of(context).pushNamed(AppRoutes.nutrientGoal);
                   },
                   backgroundColor: AppColors.primaryWhite,
                   textColor: AppColors.deepGreen,

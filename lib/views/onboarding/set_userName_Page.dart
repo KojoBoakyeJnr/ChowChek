@@ -2,6 +2,7 @@ import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_strings.dart';
 import 'package:chowchek/utils/app_text_form_fields.dart';
+import 'package:chowchek/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,7 +35,7 @@ class _SetUsernameState extends State<SetUsername> {
 
   void saveNameToSharedPref() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString("userName", _userNameController.text.trim());
+    pref.setString(AppStrings.usernameKey, _userNameController.text.trim());
   }
 
   @override
@@ -68,7 +69,7 @@ class _SetUsernameState extends State<SetUsername> {
                       child: AppTextFormFields(
                         controller: _userNameController,
                         leading: Icon(Icons.person_2_outlined),
-                        hintText: "Nickname",
+                        hintText: AppStrings.usernameHintText,
                       ),
                     ),
                   ],
@@ -81,7 +82,9 @@ class _SetUsernameState extends State<SetUsername> {
                   buttonName: AppStrings.soundsGreat,
                   onclick: () {
                     saveNameToSharedPref();
-                    Navigator.of(context).pushNamed("setAverageDailyMealCount");
+                    Navigator.of(
+                      context,
+                    ).pushNamed(AppRoutes.setAverageDailyMealCount);
                   },
                   backgroundColor:
                       (hasText) ? AppColors.primaryWhite : AppColors.primaryAsh,

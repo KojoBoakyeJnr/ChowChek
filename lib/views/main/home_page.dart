@@ -1,6 +1,7 @@
 import 'package:chowchek/models/drawer_view.dart';
 import 'package:chowchek/providers/user_details_provider.dart';
 import 'package:chowchek/utils/app_colors.dart';
+import 'package:chowchek/utils/app_strings.dart';
 import 'package:chowchek/views/main/blacklist_page.dart';
 import 'package:chowchek/views/main/saved_page.dart';
 import 'package:chowchek/views/main/today_page.dart';
@@ -35,9 +36,7 @@ class HomePageState extends State<HomePage> {
     return Consumer<UserDetailsProvider>(
       builder:
           (context, model, child) => Scaffold(
-            appBar: AppBar(
-              // title: StreakBanner(), centerTitle: true
-            ),
+            appBar: AppBar(),
             drawer: DrawerView(),
             bottomNavigationBar: BottomNavigationBar(
               selectedLabelStyle: TextStyle(
@@ -59,16 +58,25 @@ class HomePageState extends State<HomePage> {
 
               items: [
                 BottomNavigationBarItem(
-                  icon: Text("📆", style: TextStyle(fontSize: 25)),
-                  label: "Today",
+                  icon: Text(
+                    AppStrings.todayIcon,
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  label: AppStrings.todayLabel,
                 ),
                 BottomNavigationBarItem(
-                  icon: Text("💚", style: TextStyle(fontSize: 25)),
-                  label: "Saved",
+                  icon: Text(
+                    AppStrings.saveIcon,
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  label: AppStrings.savedLabel,
                 ),
                 BottomNavigationBarItem(
-                  icon: Text("❌", style: TextStyle(fontSize: 25)),
-                  label: "Blacklist",
+                  icon: Text(
+                    AppStrings.blacklistIcon,
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  label: AppStrings.blacklistLabel,
                 ),
               ],
             ),

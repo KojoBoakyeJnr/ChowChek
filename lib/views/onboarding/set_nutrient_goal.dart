@@ -5,6 +5,7 @@ import 'package:chowchek/providers/user_details_provider.dart';
 import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_strings.dart';
+import 'package:chowchek/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,7 +27,7 @@ class _SetNutrientGoalState extends State<SetNutrientGoal> {
   void addNutrientLimitsToSharedPref() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString(
-      "nutrientLimits",
+      AppStrings.nutrientLimitKey,
       jsonEncode(
         Provider.of<UserDetailsProvider>(
           // ignore: use_build_context_synchronously
@@ -39,7 +40,7 @@ class _SetNutrientGoalState extends State<SetNutrientGoal> {
 
   void setLoginStatus() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setBool("isLoggedIn", true);
+    pref.setBool(AppStrings.loginKey, true);
   }
 
   @override
@@ -73,7 +74,7 @@ class _SetNutrientGoalState extends State<SetNutrientGoal> {
                                   color: Colors.black,
                                 ),
                                 children: [
-                                  const TextSpan(text: "Howdy?👋\n"),
+                                  const TextSpan(text: AppStrings.hello),
                                   TextSpan(
                                     text: model.userName,
                                     style: const TextStyle(
@@ -119,7 +120,7 @@ class _SetNutrientGoalState extends State<SetNutrientGoal> {
                   AppButton(
                     buttonName: AppStrings.finish,
                     onclick: () {
-                      Navigator.of(context).pushNamed("homePage");
+                      Navigator.of(context).pushNamed(AppRoutes.homePage);
                       addNutrientLimitsToSharedPref();
                       setLoginStatus();
                     },
