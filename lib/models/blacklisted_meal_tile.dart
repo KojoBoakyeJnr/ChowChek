@@ -1,6 +1,7 @@
 import 'package:chowchek/utils/app_images.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class BlacklistedMealTile extends StatelessWidget {
   final String mealName;
   final double totalFat;
