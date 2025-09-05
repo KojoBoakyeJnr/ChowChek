@@ -49,7 +49,7 @@ class RemoveConfirmationBlacklist {
                             Navigator.of(context).pop();
                           },
                           child: Text(
-                            "no not really🤔",
+                            "no, not really🤔",
                             style: TextStyle(
                               color: AppColors.primaryWhite,
                               fontWeight: FontWeight.w800,
