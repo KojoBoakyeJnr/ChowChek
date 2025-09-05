@@ -4,113 +4,127 @@ import 'package:chowchek/providers/blacklisted_meals_provider.dart';
 import 'package:chowchek/providers/nutrient_check_provider.dart';
 import 'package:chowchek/providers/saved_meals_provider.dart';
 import 'package:chowchek/utils/app_colors.dart';
+import 'package:chowchek/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class BlacklistSaveButtons extends StatelessWidget {
+class BlacklistSaveButtons extends StatefulWidget {
   const BlacklistSaveButtons({super.key});
+  @override
+  State<BlacklistSaveButtons> createState() => _BlacklistSaveButtonsState();
+}
+
+class _BlacklistSaveButtonsState extends State<BlacklistSaveButtons> {
+  void blacklistMeal(context) async {
+    //add meal to blacklisted list
+    Provider.of<BlacklistedMealsProvider>(
+      context,
+      listen: false,
+    ).addMealToBlacklisted(
+      Provider.of<NutrientCheckProvider>(
+        context,
+        listen: false,
+      ).providerMealDetails.toMap(),
+    );
+    //add current state of saved list to another temporal list to encode
+    final blacklistedList =
+        Provider.of<BlacklistedMealsProvider>(
+          context,
+          listen: false,
+        ).blacklistedMeals;
+
+    //instantiate shared pref
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+
+    //add decoded current state (stringified) to pref
+    pref.setString(AppStrings.blacklistedMealsKey, jsonEncode(blacklistedList));
+
+    //display snack bar
+    ScaffoldMessenger.of(context).showSnackBar(
+      CustomSnackBar(
+        content: AppStrings.mealBlacklistedMessage,
+        backgroundColor: AppColors.primaryRed,
+      ).show(),
+    );
+  }
+
+  void saveMeal(context) async {
+    //add meal to saved list
+    Provider.of<SavedMealsProvider>(context, listen: false).addMealToSaved(
+      Provider.of<NutrientCheckProvider>(
+        context,
+        listen: false,
+      ).providerMealDetails.toMap(),
+    );
+
+    //add current state of saved list to another temporal list to encode
+    final savedList =
+        Provider.of<SavedMealsProvider>(context, listen: false).savedMeals;
+
+    //instantiate shared pref
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+
+    //add decoded current state stringified to pref
+    pref.setString(AppStrings.savedMealsKey, jsonEncode(savedList));
+
+    //display snack bar
+    ScaffoldMessenger.of(context).showSnackBar(
+      CustomSnackBar(
+        content: AppStrings.mealSavedMessage,
+        backgroundColor: AppColors.primaryGreen,
+      ).show(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<NutrientCheckProvider>(
-      builder:
-          (context, modelNutrients, child) => Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: 50,
-                  decoration: BoxDecoration(
-                    color: AppColors.primaryWhite,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: IconButton(
-                    onPressed: () async {
-                      //add meal to blacklisted list
-                      Provider.of<BlacklistedMealsProvider>(
-                        context,
-                        listen: false,
-                      ).addMealToBlacklisted(
-                        modelNutrients.providerMealDetails.toMap(),
-                      );
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        ChildButtons(
+          onButtonPressed: () => blacklistMeal(context),
+          icon: AppStrings.blacklistIcon,
+          tooltipMessage: AppStrings.blacklistMealTooltip,
+        ),
+        ChildButtons(
+          onButtonPressed: () => saveMeal(context),
+          icon: AppStrings.saveIcon,
+          tooltipMessage: AppStrings.saveMealTooltip,
+        ),
+      ],
+    );
+  }
+}
 
-                      //add current state of saved list to another temporal list to encode
-                      final blacklistedList =
-                          Provider.of<BlacklistedMealsProvider>(
-                            context,
-                            listen: false,
-                          ).blacklistedMeals;
+// ignore: must_be_immutable
+class ChildButtons extends StatelessWidget {
+  VoidCallback? onButtonPressed;
+  String icon;
+  String tooltipMessage;
+  ChildButtons({
+    super.key,
+    required this.onButtonPressed,
+    required this.icon,
+    required this.tooltipMessage,
+  });
 
-                      //instantiate shared pref
-                      final SharedPreferences pref =
-                          await SharedPreferences.getInstance();
-
-                      //add decoded current state stringified to pref
-                      pref.setString(
-                        "blacklistedMeals",
-                        jsonEncode(blacklistedList),
-                      );
-
-                      //display snack bar
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        CustomSnackBar(
-                          content: "meal has been blacklisted",
-                          backgroundColor: Colors.red,
-                        ).show(),
-                      );
-                    },
-                    icon: Text("❌", style: TextStyle(fontSize: 20)),
-
-                    tooltip: "Blacklist meal",
-                  ),
-                ),
-              ),
-              Container(
-                width: 50,
-                decoration: BoxDecoration(
-                  color: AppColors.primaryWhite,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: IconButton(
-                  onPressed: () async {
-                    //add meal to saved list
-                    Provider.of<SavedMealsProvider>(
-                      context,
-                      listen: false,
-                    ).addMealToSaved(
-                      modelNutrients.providerMealDetails.toMap(),
-                    );
-
-                    //add current state of saved list to another temporal list to encode
-                    final savedList =
-                        Provider.of<SavedMealsProvider>(
-                          context,
-                          listen: false,
-                        ).savedMeals;
-
-                    //instantiate shared pref
-                    final SharedPreferences pref =
-                        await SharedPreferences.getInstance();
-
-                    //add decoded current state stringified to pref
-                    pref.setString("savedMeals", jsonEncode(savedList));
-
-                    //display snack bar
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      CustomSnackBar(
-                        content: "added to saved meals",
-                        backgroundColor: AppColors.primaryGreen,
-                      ).show(),
-                    );
-                  },
-                  icon: Text("💚", style: TextStyle(fontSize: 20)),
-                  tooltip: "Save meal",
-                ),
-              ),
-            ],
-          ),
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        width: 50,
+        decoration: BoxDecoration(
+          color: AppColors.primaryWhite,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: IconButton(
+          onPressed: onButtonPressed,
+          icon: Text(icon, style: TextStyle(fontSize: 20)),
+          tooltip: tooltipMessage,
+        ),
+      ),
     );
   }
 }

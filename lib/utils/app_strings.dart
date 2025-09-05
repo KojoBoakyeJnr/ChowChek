@@ -28,4 +28,15 @@ class AppStrings {
       "Update Daily Nutrient Limits";
   static const String customizeYourDaily =
       "Customize your daily intake goals for better tracking.\nYou can change these anytime.";
+  static const String blacklistedMealsKey = "blacklistedMeals";
+  static const String savedMealsKey = "savedMeals";
+
+  static const String blacklistMealTooltip = "Blacklist meal";
+  static const String saveMealTooltip = "Save meal";
+
+  static const String mealBlacklistedMessage = "meal has been blacklisted";
+  static const String mealSavedMessage = "added to saved meals";
+
+  static const String blacklistIcon = "❌";
+  static const String saveIcon = "💚";
 }
