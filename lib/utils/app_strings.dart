@@ -77,4 +77,8 @@ class AppStrings {
   static const String savedLabel = "Saved";
   static const String blacklistLabel = "Blacklist";
   static const String todayIcon = "📆";
+  static const String emailAlreadyInUse = 'This email is already registered.';
+  static const String weakPassword = 'Password must be at least 6 characters.';
+  static const String generic = 'Something went wrong. Please try again.';
+  static const String guest = "Guest";
 }

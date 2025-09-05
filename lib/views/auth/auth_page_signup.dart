@@ -3,6 +3,7 @@ import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_strings.dart';
 import 'package:chowchek/utils/app_text_form_fields.dart';
+import 'package:chowchek/utils/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -123,7 +124,9 @@ class _AuthPageSignupState extends State<AuthPageSignup> {
                               recognizer:
                                   TapGestureRecognizer()
                                     ..onTap = () {
-                                      Navigator.of(context).pushNamed("login");
+                                      Navigator.of(
+                                        context,
+                                      ).pushNamed(AppRoutes.login);
                                     },
                               text: AppStrings.login,
                               style: TextStyle(
@@ -161,17 +164,17 @@ class _AuthPageSignupState extends State<AuthPageSignup> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      Navigator.of(context).pushNamed("setUserName");
+      Navigator.of(context).pushNamed(AppRoutes.setUserName);
     } on FirebaseAuthException catch (error) {
       String errorMessage;
       if (error.code == 'email-already-in-use') {
-        errorMessage = 'This email is already registered.';
+        errorMessage = AppStrings.emailAlreadyInUse;
       } else if (error.code == 'invalid-email') {
-        errorMessage = 'Please enter a valid email address.';
+        errorMessage = AppStrings.invalidEmail;
       } else if (error.code == 'weak-password') {
-        errorMessage = 'Password must be at least 6 characters.';
+        errorMessage = AppStrings.weakPassword;
       } else {
-        errorMessage = 'Something went wrong. Please try again.';
+        errorMessage = AppStrings.generic;
       }
       setState(() {});
       signUpErrorMessage = errorMessage;

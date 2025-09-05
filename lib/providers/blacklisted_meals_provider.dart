@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:chowchek/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,7 +10,9 @@ class BlacklistedMealsProvider extends ChangeNotifier {
 
   Future<void> loadBlacklistedMealsFromPrefs() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    final blacklistedMealsString = pref.getString("blacklistedMeals");
+    final blacklistedMealsString = pref.getString(
+      AppStrings.blacklistedMealsKey,
+    );
     if (blacklistedMealsString == null) {
       blacklistedMeals = [];
     } else {
@@ -29,7 +31,10 @@ class BlacklistedMealsProvider extends ChangeNotifier {
     blacklistedMeals.removeAt(index);
     notifyListeners();
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString("blacklistedMeals", jsonEncode(blacklistedMeals));
+    pref.setString(
+      AppStrings.blacklistedMealsKey,
+      jsonEncode(blacklistedMeals),
+    );
   }
 
   List<Map> blacklistedMeals = [];

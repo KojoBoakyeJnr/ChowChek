@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:chowchek/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,7 +11,7 @@ class SavedMealsProvider extends ChangeNotifier {
 
   Future<void> loadSavedMealsFromPrefs() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    final savedMealsString = pref.getString("savedMeals");
+    final savedMealsString = pref.getString(AppStrings.savedMealsKey);
     if (savedMealsString == null) {
       savedMeals = [];
     } else {
@@ -29,7 +30,7 @@ class SavedMealsProvider extends ChangeNotifier {
     savedMeals.removeAt(index);
     notifyListeners();
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString("savedMeals", jsonEncode(savedMeals));
+    pref.setString(AppStrings.savedMealsKey, jsonEncode(savedMeals));
   }
 
   List<Map> savedMeals = [];

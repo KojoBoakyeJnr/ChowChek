@@ -1,7 +1,6 @@
 import 'dart:convert';
-
+import 'package:chowchek/utils/app_strings.dart';
 import 'package:flutter/material.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserDetailsProvider extends ChangeNotifier {
@@ -28,25 +27,25 @@ class UserDetailsProvider extends ChangeNotifier {
 
   void loadNameFromSharedPref() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    userName = pref.getString("userName") ?? "Guest";
+    userName = pref.getString(AppStrings.usernameKey) ?? AppStrings.guest;
     notifyListeners();
   }
 
   void loadMealNumberFromSHaredPref() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    averageMealsPerDay = pref.getInt("mealNumber") ?? 3;
+    averageMealsPerDay = pref.getInt(AppStrings.mealNumberKey) ?? 3;
     notifyListeners();
   }
 
   void loadLoginStatus() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    isLoggedIn = pref.getBool("isLoggedIn") ?? false;
+    isLoggedIn = pref.getBool(AppStrings.loginKey) ?? false;
     notifyListeners();
   }
 
   void loadDailyNutrientsLimit() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    String nutrientsString = pref.getString("nutrientLimits") ?? "";
+    String nutrientsString = pref.getString(AppStrings.nutrientLimitKey) ?? "";
     Map nutrientsDynamic = jsonDecode(nutrientsString);
     nutrientLoggedLimits = nutrientsDynamic.map(
       (key, value) => MapEntry(key, (value as num).toDouble()),
