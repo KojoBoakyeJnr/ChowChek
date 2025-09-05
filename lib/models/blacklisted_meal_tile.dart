@@ -2,7 +2,6 @@ import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_images.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class BlacklistedMealTile extends StatelessWidget {
   final String mealName;
   final double totalFat;
@@ -10,9 +9,9 @@ class BlacklistedMealTile extends StatelessWidget {
   final double sugar;
   final double salt;
   final double cholestrol;
-  Widget delete;
+  final Widget delete;
 
-  BlacklistedMealTile({
+  const BlacklistedMealTile({
     super.key,
     required this.mealName,
     required this.totalFat,
