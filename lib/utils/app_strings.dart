@@ -55,4 +55,8 @@ class AppStrings {
   static const String cholesterolKey = "Cholesterol";
   static const String gramsUnit = "g";
   static const String milligramsUnit = "mg";
+  static const String whatDidYouEat = "What did you eat today?";
+  static const String todayHintText = "Beans with plantain and sausage";
+  static const String chekButtonName = "Chek!";
+  static const String serverErrorTryAgainLater = "serverErrorTryAgainLater";
 }

@@ -1,7 +1,7 @@
-// ignore_for_file: unused_local_variable
-
+// ignore_for_file: use_build_context_synchronously
 import 'dart:convert';
 import 'package:chowchek/endpoints/end_points.dart';
+import 'package:chowchek/models/custom_snackbar.dart';
 import 'package:chowchek/models/loading_dialog.dart';
 import 'package:chowchek/models/meal_log.dart';
 import 'package:chowchek/models/nutrient_result_container.dart';
@@ -9,6 +9,7 @@ import 'package:chowchek/models/results_empty_state.dart';
 import 'package:chowchek/providers/nutrient_check_provider.dart';
 import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
+import 'package:chowchek/utils/app_strings.dart';
 import 'package:chowchek/utils/app_text_form_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -36,9 +37,20 @@ class _TodayPageState extends State<TodayPage> {
     double sodium = 0;
     double sugar = 0;
     double cholestrol = 0;
-    String mainFoodName = "";
 
     var response = await fetchNutrientData();
+
+    if (response.statusCode == 400) {
+      showServerError();
+      return MealLog(
+        combinationName: "",
+        totalFat: 0.0,
+        saturatedFat: 0.0,
+        sugar: 0.0,
+        sodium: 0.0,
+        cholestrol: 0.0,
+      );
+    }
 
     List nutritionInfo = jsonDecode(response.body);
 
@@ -50,30 +62,30 @@ class _TodayPageState extends State<TodayPage> {
       sugar += meal["sugar_g"] ?? 0;
       cholestrol += meal["cholesterol_mg"] ?? 0;
     }
+
     String combinationName = foodName.join(" + ");
-    mainFoodName = combinationName;
 
     if (nutritionInfo.isEmpty) {
-      (mounted)
-          ? setState(() {
-            resultsFound = false;
-            resultsNotFoundBannerOff = false;
-          })
-          : null;
+      if (mounted) {
+        setState(() {
+          resultsFound = false;
+          resultsNotFoundBannerOff = false;
+        });
+      }
     } else {
-      (mounted)
-          ? setState(() {
-            resultsFound = true;
-          })
-          : null;
+      if (mounted) {
+        setState(() {
+          resultsFound = true;
+        });
+      }
     }
 
-    Future.delayed(Duration(seconds: 5), () {
-      (mounted)
-          ? setState(() {
-            resultsNotFoundBannerOff = true;
-          })
-          : null;
+    Future.delayed(const Duration(seconds: 5), () {
+      if (mounted) {
+        setState(() {
+          resultsNotFoundBannerOff = true;
+        });
+      }
     });
 
     return MealLog(
@@ -94,6 +106,15 @@ class _TodayPageState extends State<TodayPage> {
     );
   }
 
+  void showServerError() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      CustomSnackBar(
+        content: AppStrings.serverErrorTryAgainLater,
+        backgroundColor: AppColors.primaryRed,
+      ).show(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<NutrientCheckProvider>(
@@ -111,7 +132,7 @@ class _TodayPageState extends State<TodayPage> {
                           child: Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Text(
-                              "What did you eat today?",
+                              AppStrings.whatDidYouEat,
 
                               style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -122,7 +143,7 @@ class _TodayPageState extends State<TodayPage> {
                           ),
                         ),
                         AppTextFormFields(
-                          hintText: "Beans with plantain and sausage",
+                          hintText: AppStrings.todayHintText,
                           controller: _query,
                           fill: AppColors.textFieldGray,
                           leading: Icon(Icons.question_mark),
@@ -131,7 +152,7 @@ class _TodayPageState extends State<TodayPage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 15.0),
                           child: AppButton(
-                            buttonName: "Chek!",
+                            buttonName: AppStrings.chekButtonName,
                             onclick: () async {
                               if (_query.text.isNotEmpty) {
                                 LoadingDialog().show(context);
@@ -140,7 +161,6 @@ class _TodayPageState extends State<TodayPage> {
                                   context,
                                   listen: false,
                                 ).setMeal(meal);
-
                                 LoadingDialog().pop(context);
                               }
                             },
