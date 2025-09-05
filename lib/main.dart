@@ -2,6 +2,7 @@ import 'package:chowchek/providers/blacklisted_meals_provider.dart';
 import 'package:chowchek/providers/nutrient_check_provider.dart';
 import 'package:chowchek/providers/saved_meals_provider.dart';
 import 'package:chowchek/providers/user_details_provider.dart';
+import 'package:chowchek/utils/routes.dart';
 import 'package:chowchek/views/auth/auth_page_login.dart';
 import 'package:chowchek/views/auth/auth_page_signup.dart';
 import 'package:chowchek/views/main/home_page.dart';
@@ -41,14 +42,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(fontFamily: "Aeonik"),
       routes: {
-        "/": (context) => SplashScreen(),
-        "login": (context) => AuthPageLogin(),
-        "signUp": (context) => AuthPageSignup(),
-        "setUserName": (context) => SetUsername(),
-        "setAverageDailyMealCount": (context) => SetDailyMealNumber(),
-        "homePage": (context) => HomePage(),
-        "nutrientGoal": (context) => SetNutrientGoal(),
-        "updateNutrientGoal": (context) => UpdateNutrientLimits(),
+        AppRoutes.root: (context) => SplashScreen(),
+        AppRoutes.login: (context) => AuthPageLogin(),
+        AppRoutes.signUp: (context) => AuthPageSignup(),
+        AppRoutes.setUserName: (context) => SetUsername(),
+        AppRoutes.setAverageDailyMealCount: (context) => SetDailyMealNumber(),
+        AppRoutes.homePage: (context) => HomePage(),
+        AppRoutes.nutrientGoal: (context) => SetNutrientGoal(),
+        AppRoutes.updateNutrientGoal: (context) => UpdateNutrientLimits(),
       },
     );
   }

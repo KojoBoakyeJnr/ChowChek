@@ -1,3 +1,4 @@
+import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_images.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,7 @@ class BlacklistedMealTile extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 244, 81, 70),
+        color: AppColors.primaryRed,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -41,14 +42,16 @@ class BlacklistedMealTile extends StatelessWidget {
               Flexible(
                 child: Text(
                   mealName,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: AppColors.primaryWhite,
                     letterSpacing: 0.5,
                   ),
                 ),
               ),
+
+              //remove widget
               delete,
             ],
           ),
@@ -92,7 +95,10 @@ class BlacklistedMealTile extends StatelessWidget {
       children: [
         Image.asset(iconPath, width: 20, height: 20),
         const SizedBox(width: 6),
-        Text(value, style: const TextStyle(color: Colors.white, fontSize: 14)),
+        Text(
+          value,
+          style: TextStyle(color: AppColors.primaryWhite, fontSize: 14),
+        ),
       ],
     );
   }

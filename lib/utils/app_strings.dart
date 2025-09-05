@@ -33,10 +33,13 @@ class AppStrings {
 
   static const String blacklistMealTooltip = "Blacklist meal";
   static const String saveMealTooltip = "Save meal";
+  static const String logout = "Logout";
 
   static const String mealBlacklistedMessage = "meal has been blacklisted";
   static const String mealSavedMessage = "added to saved meals";
 
   static const String blacklistIcon = "❌";
   static const String saveIcon = "💚";
+  static const String updateNutrientLimits = "Update Nutrient Limit";
+  static const String loginKey = "isLoggedIn";
 }
