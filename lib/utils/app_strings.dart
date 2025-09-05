@@ -59,4 +59,14 @@ class AppStrings {
   static const String todayHintText = "Beans with plantain and sausage";
   static const String chekButtonName = "Chek!";
   static const String serverErrorTryAgainLater = "serverErrorTryAgainLater";
+  static const String invalidEmail = 'Invalid email format';
+  static const String userDisabled = 'Account disabled';
+  static const String userNotFound = 'User not found';
+  static const String wrongPassword = 'Wrong password';
+  static const String tooManyRequests = 'Too many attempts';
+  static const String operationNotAllowed = 'Sign-in not allowed';
+  static const String networkError = 'Network error check your internet';
+  static const String invalidCredential = 'Invalid credentials';
+  static const String loginFailed = 'Login failed';
+  static const String nutrientLimitKey = "nutrientLimits";
 }

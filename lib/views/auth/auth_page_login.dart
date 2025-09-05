@@ -3,6 +3,7 @@ import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_strings.dart';
 import 'package:chowchek/utils/app_text_form_fields.dart';
+import 'package:chowchek/utils/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -47,11 +48,6 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
         passwordFilled = false;
       }
     });
-  }
-
-  void setLoginStatus() async {
-    final SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setBool("isLoggedIn", true);
   }
 
   @override
@@ -112,7 +108,6 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
                               (emailFilled && passwordFilled)
                                   ? () async {
                                     _verifyAccount();
-
                                     setLoginStatus();
                                   }
                                   : () {
@@ -127,17 +122,22 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
                       RichText(
                         text: TextSpan(
                           text: AppStrings.newToChowChek,
-                          style: TextStyle(color: Colors.black, fontSize: 12),
+                          style: TextStyle(
+                            color: AppColors.black,
+                            fontSize: 12,
+                          ),
                           children: [
                             TextSpan(
                               recognizer:
                                   TapGestureRecognizer()
                                     ..onTap = () {
-                                      Navigator.of(context).pushNamed("signUp");
+                                      Navigator.of(
+                                        context,
+                                      ).pushNamed(AppRoutes.signUp);
                                     },
                               text: AppStrings.registerAnAccount,
                               style: TextStyle(
-                                color: Colors.green,
+                                color: AppColors.primaryGreen,
 
                                 decoration: TextDecoration.underline,
                               ),
@@ -163,6 +163,11 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
     );
   }
 
+  void setLoginStatus() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool(AppStrings.loginKey, true);
+  }
+
   void _verifyAccount() async {
     try {
       LoadingDialog().show(context);
@@ -179,31 +184,31 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
 
       switch (error.code) {
         case 'invalid-email':
-          errorMessage = 'Invalid email format';
+          errorMessage = AppStrings.invalidEmail;
           break;
         case 'user-disabled':
-          errorMessage = 'Account disabled';
+          errorMessage = AppStrings.userDisabled;
           break;
         case 'user-not-found':
-          errorMessage = 'User not found';
+          errorMessage = AppStrings.userNotFound;
           break;
         case 'wrong-password':
-          errorMessage = 'Wrong password';
+          errorMessage = AppStrings.wrongPassword;
           break;
         case 'too-many-requests':
-          errorMessage = 'Too many attempts';
+          errorMessage = AppStrings.tooManyRequests;
           break;
         case 'operation-not-allowed':
-          errorMessage = 'Sign-in not allowed';
+          errorMessage = AppStrings.operationNotAllowed;
           break;
         case 'network-request-failed':
-          errorMessage = 'Network error check your internet';
+          errorMessage = AppStrings.networkError;
           break;
         case 'invalid-credential':
-          errorMessage = 'Invalid credentials';
+          errorMessage = AppStrings.invalidCredential;
           break;
         default:
-          errorMessage = 'Login failed';
+          errorMessage = AppStrings.loginFailed;
       }
 
       setState(() {

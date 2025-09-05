@@ -1,3 +1,4 @@
+import 'package:chowchek/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:chowchek/models/nutrient_meter.dart';
@@ -25,7 +26,7 @@ class _UpdateNutrientLimitsState extends State<UpdateNutrientLimits> {
   void addNutrientLimitsToSharedPref() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString(
-      "nutrientLimits",
+      AppStrings.nutrientLimitKey,
       jsonEncode(
         Provider.of<UserDetailsProvider>(
           // ignore: use_build_context_synchronously
@@ -69,7 +70,7 @@ class _UpdateNutrientLimitsState extends State<UpdateNutrientLimits> {
                     AppButton(
                       buttonName: AppStrings.update,
                       onclick: () {
-                        Navigator.of(context).pushNamed("homePage");
+                        Navigator.of(context).pushNamed(AppRoutes.homePage);
                         addNutrientLimitsToSharedPref();
                       },
                       backgroundColor: AppColors.primaryGreen,
