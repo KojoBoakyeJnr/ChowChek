@@ -28,7 +28,10 @@ class _BlacklistPageState extends State<BlacklistPage> {
                     onPressed: () {
                       RemoveConfirmationBlacklist(index: index).show(context);
                     },
-                    icon: Icon(Icons.delete, color: Colors.yellow),
+                    icon: Icon(
+                      Icons.delete,
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                    ),
                   ),
                   mealName: model.blacklistedMeals[index]["combinationName"],
                   totalFat: model.blacklistedMeals[index]["totalFat"],
