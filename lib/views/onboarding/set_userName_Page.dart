@@ -43,56 +43,38 @@ class _SetUsernameState extends State<SetUsername> {
     return Scaffold(
       backgroundColor: AppColors.primaryGreen,
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 150.0),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Text(
-                        textAlign: TextAlign.center,
-                        AppStrings.whatName,
-
-                        style: TextStyle(
-                          fontSize: 50,
-                          height: 1,
-                          color: AppColors.primaryWhite,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: AppTextFormFields(
-                        controller: _userNameController,
-                        leading: Icon(Icons.person_2_outlined),
-                        hintText: AppStrings.usernameHintText,
-                      ),
-                    ),
-                  ],
+              Text(
+                textAlign: TextAlign.center,
+                AppStrings.whatName,
+                style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                  color: AppColors.primaryWhite,
                 ),
               ),
+              SizedBox(height: 16),
+              AppTextFormFields(
+                controller: _userNameController,
+                leading: Icon(Icons.person_2_outlined),
+                hintText: AppStrings.usernameHintText,
+              ),
+              SizedBox(height: 16),
 
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: AppButton(
-                  buttonName: AppStrings.soundsGreat,
-                  onclick: () {
-                    saveNameToSharedPref();
-                    Navigator.of(
-                      context,
-                    ).pushNamed(AppRoutes.setAverageDailyMealCount);
-                  },
-                  backgroundColor:
-                      (hasText) ? AppColors.primaryWhite : AppColors.primaryAsh,
-                  textColor:
-                      (hasText)
-                          ? AppColors.primaryGreen
-                          : AppColors.primaryWhite,
-                ),
+              AppButton(
+                buttonName: AppStrings.soundsGreat,
+                onclick: () {
+                  saveNameToSharedPref();
+                  Navigator.of(
+                    context,
+                  ).pushNamed(AppRoutes.setAverageDailyMealCount);
+                },
+                backgroundColor:
+                    (hasText) ? AppColors.primaryWhite : AppColors.primaryAsh,
+                textColor:
+                    (hasText) ? AppColors.primaryGreen : AppColors.primaryWhite,
               ),
             ],
           ),

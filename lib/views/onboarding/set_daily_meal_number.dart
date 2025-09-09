@@ -30,44 +30,33 @@ class _SetDailyMealNumberState extends State<SetDailyMealNumber> {
       backgroundColor: AppColors.primaryGreen,
       body: SafeArea(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 150.0),
-                child: Column(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Text(
-                        AppStrings.onAverageHowMany,
-                        style: TextStyle(
-                          fontSize: 50,
-                          height: 1,
-                          color: AppColors.primaryWhite,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
+                    Text(
+                      AppStrings.onAverageHowMany,
+                      style: Theme.of(context).textTheme.headlineLarge
+                          ?.copyWith(color: AppColors.primaryWhite),
+                      textAlign: TextAlign.center,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Text(
-                        AppStrings.dailyAverageExplainer,
-                        textAlign: TextAlign.center,
-                      ),
+                    SizedBox(height: 16),
+                    Text(
+                      AppStrings.dailyAverageExplainer,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineSmall?.copyWith(fontSize: 12),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: QuantitySelector(key: mealNumber),
-                    ),
+                    SizedBox(height: 16),
+                    QuantitySelector(key: mealNumber),
                   ],
                 ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: AppButton(
+                SizedBox(height: 16),
+                AppButton(
                   buttonName: AppStrings.looksGood,
                   onclick: () {
                     saveMealNumberToSharedPref();
@@ -76,8 +65,8 @@ class _SetDailyMealNumberState extends State<SetDailyMealNumber> {
                   backgroundColor: AppColors.primaryWhite,
                   textColor: AppColors.deepGreen,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
