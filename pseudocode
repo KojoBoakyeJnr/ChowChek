@@ -1,0 +1,32 @@
+
+
+
+When the app first builds, the user’s nutrient limits are loaded from SharedPreferences and stored in the Provider. Later, when the user searches for a meal, the nutritional information for that meal is also stored temporarily in the Provider.
+
+ At this point, the app has two pieces of information available: the user’s limits and the meal’s nutrient values.
+
+The next step is to compare the meal’s nutrient values (such as sugar, fat, sodium, etc.) against the user’s logged limits. For each nutrient, the system checks whether the value in the meal is greater than the user’s limit. If any nutrient exceeds the limit, the app should flag that nutrient and display a warning message to the user; for example, “This meal exceeds your sugar limit.” If none of the nutrients go beyond the user’s limits, then the meal is displayed normally with no warnings.
+
+
+
+
+
+Take user's limit as ul
+Take meal's nutrient values as mnv
+
+if mnv.totalfat > ul.totalfat {
+    show warning mssg
+}
+if mnv.satfat > ul.satfat{
+    show warning mssg
+}
+if mnv.sugar > ul.sugar{
+    show warning mssg
+}
+if mnv.sodium > ul.sodium{
+    show warning mssg
+}
+if mnv.cholesterol > ul.cholesterol{
+    show warning mssg
+}
+

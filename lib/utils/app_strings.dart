@@ -1,6 +1,6 @@
 class AppStrings {
   static const String getstarted = "Get Started";
-  static const String splashText = "Eat Smarter, One Meal At A Time";
+  static const String splashText = "Eat\nSmarter,\nOne Meal\nAt A Time";
   static const String login = "Login";
   static const String signUp = "Sign up";
   static const String email = "Email address";

@@ -1,4 +1,4 @@
-import 'package:chowchek/models/loading_dialog.dart';
+import 'package:chowchek/views/components/loading_dialog.dart';
 import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_strings.dart';
@@ -17,8 +17,8 @@ class AuthPageSignup extends StatefulWidget {
 
 class _AuthPageSignupState extends State<AuthPageSignup> {
   final TextEditingController _emailController = TextEditingController();
-
   final TextEditingController _passwordController = TextEditingController();
+
   bool emailFilled = false;
   bool passwordFilled = false;
   String signUpErrorMessage = "";
@@ -27,25 +27,15 @@ class _AuthPageSignupState extends State<AuthPageSignup> {
   void initState() {
     super.initState();
     _emailController.addListener(() {
-      if (_emailController.text.isNotEmpty) {
-        setState(() {
-          emailFilled = true;
-        });
-      } else {
-        setState(() {
-          emailFilled = false;
-        });
-      }
+      setState(() {
+        emailFilled = _emailController.text.isNotEmpty;
+      });
     });
 
     _passwordController.addListener(() {
-      if (_passwordController.text.isNotEmpty) {
-        setState(() {
-          passwordFilled = true;
-        });
-      } else {
-        passwordFilled = false;
-      }
+      setState(() {
+        passwordFilled = _passwordController.text.isNotEmpty;
+      });
     });
   }
 
@@ -53,100 +43,119 @@ class _AuthPageSignupState extends State<AuthPageSignup> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryWhite,
-      appBar: AppBar(
-        backgroundColor: AppColors.primaryWhite,
-        leading: Icon(null),
-        title: Text(
-          AppStrings.signUp,
-          style: TextStyle(fontWeight: FontWeight.w400, fontSize: 30),
-        ),
-      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    AppTextFormFields(
-                      fill: AppColors.textFieldGray,
-                      leading: Icon(Icons.email, color: AppColors.primaryAsh),
-                      controller: _emailController,
-                      hintText: AppStrings.email,
+              // Expanded 1 → Top title (same style as Login)
+              Expanded(
+                flex: 1,
+                child: Center(
+                  child: Text(
+                    AppStrings.signUp,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
-                    SizedBox(height: 16),
-                    AppTextFormFields(
-                      fill: AppColors.textFieldGray,
-                      leading: Icon(
-                        Icons.password,
-                        color: AppColors.primaryAsh,
-                      ),
-                      obscureText: true,
-                      controller: _passwordController,
-                      hintText: AppStrings.password,
-                    ),
-                    SizedBox(height: 16),
-                    SizedBox(
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          signUpErrorMessage,
+                  ),
+                ),
+              ),
 
-                          style: TextStyle(color: AppColors.primaryRed),
+              // Expanded 2 → Form
+              Expanded(
+                flex: 2,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      AppTextFormFields(
+                        fill: AppColors.textFieldGray,
+                        leading: Icon(Icons.email, color: AppColors.primaryAsh),
+                        controller: _emailController,
+                        hintText: AppStrings.email,
+                      ),
+                      const SizedBox(height: 16),
+                      AppTextFormFields(
+                        fill: AppColors.textFieldGray,
+                        leading: Icon(
+                          Icons.password,
+                          color: AppColors.primaryAsh,
+                        ),
+                        obscureText: true,
+                        controller: _passwordController,
+                        hintText: AppStrings.password,
+                      ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            signUpErrorMessage,
+                            style: TextStyle(color: AppColors.primaryRed),
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 16),
-                    AppButton(
-                      textColor: AppColors.primaryWhite,
-                      buttonName: AppStrings.createAccount,
-                      onclick:
-                          (emailFilled && passwordFilled)
-                              ? () {
-                                _createAccount();
-                              }
-                              : () {
-                                null;
-                              },
-                      backgroundColor:
-                          (emailFilled && passwordFilled)
-                              ? AppColors.primaryGreen
-                              : AppColors.primaryAsh,
-                    ),
-                    SizedBox(height: 16),
-                    RichText(
-                      text: TextSpan(
-                        text: AppStrings.alreadyHaveAnAccount,
-                        style: TextStyle(color: Colors.black, fontSize: 12),
-                        children: [
-                          TextSpan(
-                            recognizer:
-                                TapGestureRecognizer()
-                                  ..onTap = () {
-                                    Navigator.of(
-                                      context,
-                                    ).pushNamed(AppRoutes.login);
-                                  },
-                            text: AppStrings.login,
-                            style: TextStyle(
-                              color: AppColors.deepGreen,
-
-                              decoration: TextDecoration.underline,
-                            ),
+                      const SizedBox(height: 16),
+                      AppButton(
+                        textColor: AppColors.primaryWhite,
+                        buttonName: AppStrings.createAccount,
+                        onclick:
+                            (emailFilled && passwordFilled)
+                                ? () {
+                                  _createAccount();
+                                }
+                                : () {
+                                  null;
+                                },
+                        backgroundColor:
+                            (emailFilled && passwordFilled)
+                                ? AppColors.primaryGreen
+                                : AppColors.primaryAsh,
+                      ),
+                      const SizedBox(height: 16),
+                      RichText(
+                        text: TextSpan(
+                          text: AppStrings.alreadyHaveAnAccount,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
                           ),
-                        ],
+                          children: [
+                            TextSpan(
+                              recognizer:
+                                  TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Navigator.of(
+                                        context,
+                                      ).pushNamed(AppRoutes.login);
+                                    },
+                              text: AppStrings.login,
+                              style: TextStyle(
+                                color: AppColors.deepGreen,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // Expanded 3 → Bottom tagline (same as Login style)
+              Expanded(
+                flex: 1,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        AppStrings.oneStepCloser,
+                        style: const TextStyle(fontSize: 30),
                       ),
                     ),
                   ],
                 ),
-              ),
-
-              Text(
-                AppStrings.oneStepCloser,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineLarge,
               ),
             ],
           ),

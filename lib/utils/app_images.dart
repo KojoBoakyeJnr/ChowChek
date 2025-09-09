@@ -7,4 +7,5 @@ class AppImages {
   static const String cholestrol = "assets/images/cholestrol.png";
   static const String salt = "assets/images/salt.png";
   static const String sugar = "assets/images/sugar.png";
+  static const String logo = "assets/icon/icon.png";
 }

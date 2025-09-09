@@ -1,4 +1,4 @@
-import 'package:chowchek/models/drawer_view.dart';
+import 'package:chowchek/views/components/drawer_view.dart';
 import 'package:chowchek/providers/user_details_provider.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_strings.dart';

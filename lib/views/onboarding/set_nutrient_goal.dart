@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:chowchek/models/nutrient_meter.dart';
+import 'package:chowchek/views/components/nutrient_meter.dart';
 import 'package:chowchek/providers/user_details_provider.dart';
 import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';

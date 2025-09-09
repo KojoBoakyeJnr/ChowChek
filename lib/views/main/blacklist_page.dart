@@ -1,5 +1,5 @@
-import 'package:chowchek/models/blacklisted_meal_tile.dart';
-import 'package:chowchek/models/remove_confirmation.dart';
+import 'package:chowchek/views/components/blacklisted_meal_tile.dart';
+import 'package:chowchek/views/components/remove_confirmation.dart';
 import 'package:chowchek/providers/blacklisted_meals_provider.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -18,32 +18,38 @@ class _BlacklistPageState extends State<BlacklistPage> {
     return Consumer<BlacklistedMealsProvider>(
       builder:
           (context, model, child) => SafeArea(
-            child: ListView.builder(
-              itemCount: model.blacklistedMeals.length,
-              itemBuilder: (context, int index) {
-                return BlacklistedMealTile(
-                  delete: IconButton(
-                    onPressed: () {
-                      RemoveConfirmation(
-                        index: index,
-                        remove: () {
-                          Provider.of<BlacklistedMealsProvider>(
-                            context,
-                            listen: false,
-                          ).removeMealFromBlacklisted(index);
-                        },
-                      ).show(context);
-                    },
-                    icon: Icon(Icons.delete, color: AppColors.primaryWhite),
-                  ),
-                  mealName: model.blacklistedMeals[index]["combinationName"],
-                  totalFat: model.blacklistedMeals[index]["totalFat"],
-                  saturatedFat: model.blacklistedMeals[index]["saturatedFat"],
-                  sugar: model.blacklistedMeals[index]["sugar"],
-                  salt: model.blacklistedMeals[index]["sodium"],
-                  cholestrol: model.blacklistedMeals[index]["cholestrol"],
-                );
-              },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 20.0,
+                horizontal: 20,
+              ),
+              child: ListView.builder(
+                itemCount: model.blacklistedMeals.length,
+                itemBuilder: (context, int index) {
+                  return BlacklistedMealTile(
+                    delete: IconButton(
+                      onPressed: () {
+                        RemoveConfirmation(
+                          index: index,
+                          remove: () {
+                            Provider.of<BlacklistedMealsProvider>(
+                              context,
+                              listen: false,
+                            ).removeMealFromBlacklisted(index);
+                          },
+                        ).show(context);
+                      },
+                      icon: Icon(Icons.delete, color: AppColors.primaryWhite),
+                    ),
+                    mealName: model.blacklistedMeals[index]["combinationName"],
+                    totalFat: model.blacklistedMeals[index]["totalFat"],
+                    saturatedFat: model.blacklistedMeals[index]["saturatedFat"],
+                    sugar: model.blacklistedMeals[index]["sugar"],
+                    salt: model.blacklistedMeals[index]["sodium"],
+                    cholestrol: model.blacklistedMeals[index]["cholestrol"],
+                  );
+                },
+              ),
             ),
           ),
     );

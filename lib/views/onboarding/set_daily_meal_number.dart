@@ -1,4 +1,4 @@
-import 'package:chowchek/models/quantity_selector.dart';
+import 'package:chowchek/views/components/quantity_selector.dart';
 import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_strings.dart';

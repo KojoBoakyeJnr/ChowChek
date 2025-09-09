@@ -27,7 +27,7 @@ class SavedMealTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: AppColors.deepGreen,
         borderRadius: BorderRadius.circular(20),

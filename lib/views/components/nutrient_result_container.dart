@@ -1,5 +1,5 @@
-import 'package:chowchek/models/blacklist_save_buttons.dart';
-import 'package:chowchek/models/nutrient_row.dart';
+import 'package:chowchek/views/components/blacklist_save_buttons.dart';
+import 'package:chowchek/views/components/nutrient_row.dart';
 import 'package:chowchek/providers/nutrient_check_provider.dart';
 import 'package:chowchek/providers/saved_meals_provider.dart';
 import 'package:chowchek/providers/user_details_provider.dart';

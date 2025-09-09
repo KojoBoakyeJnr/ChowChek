@@ -1,6 +1,7 @@
 import 'package:chowchek/providers/user_details_provider.dart';
 import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
+import 'package:chowchek/utils/app_images.dart';
 import 'package:chowchek/utils/app_strings.dart';
 import 'package:chowchek/utils/routes.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Consumer<UserDetailsProvider>(
       builder:
           (context, model, child) => Scaffold(
-            backgroundColor: AppColors.primaryGreen,
+            backgroundColor: AppColors.primaryWhite,
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -35,27 +36,35 @@ class _SplashScreenState extends State<SplashScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: Center(
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            AppStrings.splashText,
-                            style: TextStyle(fontSize: 100),
-                          ),
+                      flex: 1,
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SizedBox(
+                          width: 100,
+                          child: Image.asset(AppImages.logo),
                         ),
                       ),
                     ),
-                    AppButton(
-                      textColor: AppColors.primaryGreen,
-                      backgroundColor: AppColors.primaryWhite,
-                      buttonName: AppStrings.getstarted,
-                      onclick: () {
-                        (model.isLoggedIn)
-                            ? Navigator.of(
-                              context,
-                            ).pushNamed(AppRoutes.homePage)
-                            : Navigator.of(context).pushNamed(AppRoutes.signUp);
-                      },
+
+                    Expanded(
+                      flex: 1,
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: AppButton(
+                          textColor: AppColors.primaryWhite,
+                          backgroundColor: AppColors.primaryGreen,
+                          buttonName: AppStrings.getstarted,
+                          onclick: () {
+                            (model.isLoggedIn)
+                                ? Navigator.of(
+                                  context,
+                                ).pushNamed(AppRoutes.homePage)
+                                : Navigator.of(
+                                  context,
+                                ).pushNamed(AppRoutes.signUp);
+                          },
+                        ),
+                      ),
                     ),
                   ],
                 ),

@@ -1,4 +1,4 @@
-import 'package:chowchek/models/meal_log.dart';
+import 'package:chowchek/model/meal_log.dart';
 import 'package:flutter/material.dart';
 
 class NutrientCheckProvider extends ChangeNotifier {

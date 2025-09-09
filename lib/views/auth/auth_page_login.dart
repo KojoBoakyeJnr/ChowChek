@@ -1,4 +1,4 @@
-import 'package:chowchek/models/loading_dialog.dart';
+import 'package:chowchek/views/components/loading_dialog.dart';
 import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_strings.dart';
@@ -54,100 +54,123 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryWhite,
-      appBar: AppBar(
-        leading: Icon(null),
-        title: Text(
-          AppStrings.login,
-          style: TextStyle(fontWeight: FontWeight.w400, fontSize: 30),
-        ),
-        backgroundColor: AppColors.primaryWhite,
-      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    AppTextFormFields(
-                      fill: AppColors.textFieldGray,
-                      leading: Icon(Icons.email, color: AppColors.primaryAsh),
-                      controller: _emailController,
-                      hintText: AppStrings.email,
-                    ),
-                    SizedBox(height: 16),
-                    AppTextFormFields(
-                      fill: AppColors.textFieldGray,
-                      leading: Icon(
-                        Icons.password,
-                        color: AppColors.primaryAsh,
-                      ),
-                      obscureText: true,
-                      controller: _passwordController,
-                      hintText: AppStrings.password,
-                    ),
-                    SizedBox(height: 16),
-                    SizedBox(
-                      child: Text(
-                        loginErrorMessage,
-                        textAlign: TextAlign.start,
-                        style: TextStyle(color: AppColors.primaryRed),
+          child: Center(
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Center(
+                    child: Text(
+                      AppStrings.login,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 16),
-                    AppButton(
-                      textColor: AppColors.primaryWhite,
-                      buttonName: AppStrings.continueButtontext,
-                      onclick:
-                          (emailFilled && passwordFilled)
-                              ? () async {
-                                _verifyAccount();
-                                setLoginStatus();
-                              }
-                              : () {
-                                null;
-                              },
-                      backgroundColor:
-                          (emailFilled && passwordFilled)
-                              ? AppColors.primaryGreen
-                              : AppColors.primaryAsh,
-                    ),
-                    SizedBox(height: 16),
-                    RichText(
-                      text: TextSpan(
-                        text: AppStrings.newToChowChek,
-                        style: TextStyle(color: AppColors.black, fontSize: 12),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: SingleChildScrollView(
+                    child: Center(
+                      child: Column(
                         children: [
-                          TextSpan(
-                            recognizer:
-                                TapGestureRecognizer()
-                                  ..onTap = () {
-                                    Navigator.of(
-                                      context,
-                                    ).pushNamed(AppRoutes.signUp);
-                                  },
-                            text: AppStrings.registerAnAccount,
-                            style: TextStyle(
-                              color: AppColors.primaryGreen,
+                          AppTextFormFields(
+                            fill: AppColors.textFieldGray,
+                            leading: Icon(
+                              Icons.email,
+                              color: AppColors.primaryAsh,
+                            ),
+                            controller: _emailController,
+                            hintText: AppStrings.email,
+                          ),
+                          SizedBox(height: 16),
+                          AppTextFormFields(
+                            fill: AppColors.textFieldGray,
+                            leading: Icon(
+                              Icons.password,
+                              color: AppColors.primaryAsh,
+                            ),
+                            obscureText: true,
+                            controller: _passwordController,
+                            hintText: AppStrings.password,
+                          ),
+                          SizedBox(height: 16),
+                          SizedBox(
+                            child: Text(
+                              loginErrorMessage,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(color: AppColors.primaryRed),
+                            ),
+                          ),
+                          SizedBox(height: 16),
+                          AppButton(
+                            textColor: AppColors.primaryWhite,
+                            buttonName: AppStrings.continueButtontext,
+                            onclick:
+                                (emailFilled && passwordFilled)
+                                    ? () async {
+                                      _verifyAccount();
+                                      setLoginStatus();
+                                    }
+                                    : () {
+                                      null;
+                                    },
+                            backgroundColor:
+                                (emailFilled && passwordFilled)
+                                    ? AppColors.primaryGreen
+                                    : AppColors.primaryAsh,
+                          ),
+                          SizedBox(height: 16),
+                          RichText(
+                            text: TextSpan(
+                              text: AppStrings.newToChowChek,
+                              style: TextStyle(
+                                color: AppColors.black,
+                                fontSize: 12,
+                              ),
+                              children: [
+                                TextSpan(
+                                  recognizer:
+                                      TapGestureRecognizer()
+                                        ..onTap = () {
+                                          Navigator.of(
+                                            context,
+                                          ).pushNamed(AppRoutes.signUp);
+                                        },
+                                  text: AppStrings.registerAnAccount,
+                                  style: TextStyle(
+                                    color: AppColors.primaryGreen,
 
-                              decoration: TextDecoration.underline,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-
-              Text(
-                AppStrings.oneMealAtATime,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ],
+                Expanded(
+                  flex: 1,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          AppStrings.oneMealAtATime,
+                          style: TextStyle(fontSize: 30),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -209,3 +232,22 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
     }
   }
 }
+
+
+//---------------column
+
+//-----Expanded 1
+  //----Row
+    //--Text -----(if text is long put text in an expanded first)
+
+
+//------------Expanded 2
+   //---------column
+     //--text field
+     //--text field
+     //--continue button
+
+
+//-----Expanded 3
+   //----column
+     //--Text

@@ -1,11 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:convert';
 import 'package:chowchek/endpoints/end_points.dart';
-import 'package:chowchek/models/custom_snackbar.dart';
-import 'package:chowchek/models/loading_dialog.dart';
-import 'package:chowchek/models/meal_log.dart';
-import 'package:chowchek/models/nutrient_result_container.dart';
-import 'package:chowchek/models/results_empty_state.dart';
+import 'package:chowchek/views/components/custom_snackbar.dart';
+import 'package:chowchek/views/components/loading_dialog.dart';
+import 'package:chowchek/model/meal_log.dart';
+import 'package:chowchek/views/components/nutrient_result_container.dart';
+import 'package:chowchek/views/components/results_empty_state.dart';
 import 'package:chowchek/providers/nutrient_check_provider.dart';
 import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
@@ -121,52 +121,40 @@ class TodayPageState extends State<TodayPage> {
       builder:
           (context, model, child) => SafeArea(
             child: Padding(
-              padding: const EdgeInsets.only(top: 10.0, left: 20, right: 20),
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     Column(
                       children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Text(
-                              AppStrings.whatDidYouEat,
-
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 30,
-                                height: 1,
-                              ),
-                            ),
-                          ),
+                        Text(
+                          AppStrings.whatDidYouEat,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headlineLarge,
                         ),
+                        SizedBox(height: 16),
                         AppTextFormFields(
                           hintText: AppStrings.todayHintText,
                           controller: _query,
                           fill: AppColors.textFieldGray,
                           leading: Icon(Icons.question_mark),
                         ),
-
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15.0),
-                          child: AppButton(
-                            buttonName: AppStrings.chekButtonName,
-                            onclick: () async {
-                              if (_query.text.isNotEmpty) {
-                                LoadingDialog().show(context);
-                                final meal = await _getAndStoreNutritionData();
-                                Provider.of<NutrientCheckProvider>(
-                                  context,
-                                  listen: false,
-                                ).setMeal(meal);
-                                LoadingDialog().pop(context);
-                              }
-                            },
-                            backgroundColor: AppColors.deepGreen,
-                            textColor: AppColors.primaryWhite,
-                          ),
+                        SizedBox(height: 16),
+                        AppButton(
+                          buttonName: AppStrings.chekButtonName,
+                          onclick: () async {
+                            if (_query.text.isNotEmpty) {
+                              LoadingDialog().show(context);
+                              final meal = await _getAndStoreNutritionData();
+                              Provider.of<NutrientCheckProvider>(
+                                context,
+                                listen: false,
+                              ).setMeal(meal);
+                              LoadingDialog().pop(context);
+                            }
+                          },
+                          backgroundColor: AppColors.deepGreen,
+                          textColor: AppColors.primaryWhite,
                         ),
                         (resultsFound)
                             ? Padding(

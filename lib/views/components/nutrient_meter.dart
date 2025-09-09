@@ -1,4 +1,4 @@
-import 'package:chowchek/models/nutrient_tile.dart';
+import 'package:chowchek/views/components/nutrient_tile.dart';
 import 'package:chowchek/providers/user_details_provider.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_images.dart';
