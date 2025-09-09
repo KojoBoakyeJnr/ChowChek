@@ -45,38 +45,48 @@ class _SetUsernameState extends State<SetUsername> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                textAlign: TextAlign.center,
-                AppStrings.whatName,
-                style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                  color: AppColors.primaryWhite,
+          child: Expanded(
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      textAlign: TextAlign.center,
+                      AppStrings.whatName,
+                      style: TextStyle(
+                        color: AppColors.primaryWhite,
+                        fontSize: 20,
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    AppTextFormFields(
+                      controller: _userNameController,
+                      leading: Icon(Icons.person_2_outlined),
+                      hintText: AppStrings.usernameHintText,
+                    ),
+                    SizedBox(height: 16),
+                    AppButton(
+                      buttonName: AppStrings.soundsGreat,
+                      onclick: () {
+                        saveNameToSharedPref();
+                        Navigator.of(
+                          context,
+                        ).pushNamed(AppRoutes.setAverageDailyMealCount);
+                      },
+                      backgroundColor:
+                          (hasText)
+                              ? AppColors.primaryWhite
+                              : AppColors.primaryAsh,
+                      textColor:
+                          (hasText)
+                              ? AppColors.primaryGreen
+                              : AppColors.primaryWhite,
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(height: 16),
-              AppTextFormFields(
-                controller: _userNameController,
-                leading: Icon(Icons.person_2_outlined),
-                hintText: AppStrings.usernameHintText,
-              ),
-              SizedBox(height: 16),
-
-              AppButton(
-                buttonName: AppStrings.soundsGreat,
-                onclick: () {
-                  saveNameToSharedPref();
-                  Navigator.of(
-                    context,
-                  ).pushNamed(AppRoutes.setAverageDailyMealCount);
-                },
-                backgroundColor:
-                    (hasText) ? AppColors.primaryWhite : AppColors.primaryAsh,
-                textColor:
-                    (hasText) ? AppColors.primaryGreen : AppColors.primaryWhite,
-              ),
-            ],
+            ),
           ),
         ),
       ),

@@ -37,19 +37,32 @@ class _SetDailyMealNumberState extends State<SetDailyMealNumber> {
               children: [
                 Column(
                   children: [
-                    Text(
-                      AppStrings.onAverageHowMany,
-                      style: Theme.of(context).textTheme.headlineLarge
-                          ?.copyWith(color: AppColors.primaryWhite),
-                      textAlign: TextAlign.center,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            AppStrings.onAverageHowMany,
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: AppColors.primaryWhite,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 16),
-                    Text(
-                      AppStrings.dailyAverageExplainer,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.headlineSmall?.copyWith(fontSize: 12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            AppStrings.dailyAverageExplainer,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 16),
                     QuantitySelector(key: mealNumber),
