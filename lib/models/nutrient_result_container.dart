@@ -17,6 +17,7 @@ class NutrientResult extends StatefulWidget {
 }
 
 class _NutrientResultState extends State<NutrientResult> {
+  bool showWarning = true;
   String percentString(double value, dynamic limitRaw) {
     final limit = (limitRaw is num) ? limitRaw.toDouble() : 0.0;
     if (limit <= 0.0) return "0.0%";
@@ -69,6 +70,46 @@ class _NutrientResultState extends State<NutrientResult> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              //----Warning/Feedback-----//
+              (showWarning == true)
+                  ? Padding(
+                    padding: const EdgeInsets.only(
+                      top: 10.0,
+                      bottom: 20,
+                      left: 10,
+                      right: 10,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.amber[50],
+                        borderRadius: BorderRadiusDirectional.circular(10),
+                      ),
+                      width: 350,
+                      height: 40,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "⚠️ This meal is high in 2 nutrients",
+                            style: TextStyle(
+                              color: const Color.fromARGB(255, 226, 100, 4),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            "Cholesterol in this meal exceeds your daily limit.",
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: const Color.fromARGB(255, 93, 93, 93),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                  : Container(),
+
               // title
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

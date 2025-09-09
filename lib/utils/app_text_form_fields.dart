@@ -25,7 +25,6 @@ class _AppTextFormFieldsState extends State<AppTextFormFields> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 350,
       height: 60,
       child: TextFormField(
         obscureText: widget.obscureText,

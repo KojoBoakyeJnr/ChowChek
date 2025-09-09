@@ -26,19 +26,26 @@ class _SplashScreenState extends State<SplashScreen> {
           (context, model, child) => Scaffold(
             backgroundColor: AppColors.primaryGreen,
             body: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 200.0, left: 20),
-                    child: Text(
-                      AppStrings.splashText,
-                      style: TextStyle(fontSize: 90, height: 0.9),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Center(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            AppStrings.splashText,
+                            style: TextStyle(fontSize: 100),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: AppButton(
+                    AppButton(
                       textColor: AppColors.primaryGreen,
                       backgroundColor: AppColors.primaryWhite,
                       buttonName: AppStrings.getstarted,
@@ -50,8 +57,8 @@ class _SplashScreenState extends State<SplashScreen> {
                             : Navigator.of(context).pushNamed(AppRoutes.signUp);
                       },
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

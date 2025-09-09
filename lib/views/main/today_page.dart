@@ -20,7 +20,7 @@ class TodayPage extends StatefulWidget {
   const TodayPage({super.key});
 
   @override
-  State<TodayPage> createState() => _TodayPageState();
+  State<TodayPage> createState() => TodayPageState();
 }
 
 TextEditingController _query = TextEditingController();
@@ -29,7 +29,7 @@ bool resultsNotFoundBannerOff = true;
 
 final apiKey = dotenv.env['API_KEY'];
 
-class _TodayPageState extends State<TodayPage> {
+class TodayPageState extends State<TodayPage> {
   Future<MealLog> _getAndStoreNutritionData() async {
     List foodName = [];
     double totalFat = 0;
@@ -168,11 +168,10 @@ class _TodayPageState extends State<TodayPage> {
                             textColor: AppColors.primaryWhite,
                           ),
                         ),
-
                         (resultsFound)
                             ? Padding(
                               padding: const EdgeInsets.only(
-                                top: 20.0,
+                                top: 8,
                                 left: 10,
                                 right: 10,
                               ),

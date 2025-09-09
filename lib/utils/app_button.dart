@@ -25,7 +25,6 @@ class AppButton extends StatelessWidget {
           color: backgroundColor,
           borderRadius: BorderRadius.circular(50),
         ),
-        width: 350,
         height: 50,
 
         child: Center(

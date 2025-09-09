@@ -1,6 +1,6 @@
 class AppStrings {
   static const String getstarted = "Get Started";
-  static const String splashText = "Eat\nSmarter,\nOne Meal \nAt A Time";
+  static const String splashText = "Eat Smarter, One Meal At A Time";
   static const String login = "Login";
   static const String signUp = "Sign up";
   static const String email = "Email address";
@@ -12,9 +12,9 @@ class AppStrings {
   static const String newToChowChek = 'New to ChowChek? ';
   static const String whatName = 'What should we call you?';
   static const String oneStepCloser =
-      "You’re \none step closer \nto eating better ✨";
+      "You’re one step closer to eating better ✨";
   static const String oneMealAtATime =
-      "1 meal\nat a time, you’re building better habits🍃";
+      "1 meal at a time, you’re building better habits🍃";
   static const String soundsGreat = "Sounds great!";
   static const String looksGood = "Looks good!";
   static const String onAverageHowMany =
