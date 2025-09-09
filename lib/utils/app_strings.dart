@@ -71,7 +71,7 @@ class AppStrings {
   static const String nutrientLimitKey = "nutrientLimits";
   static const String usernameKey = "userName";
   static const String usernameHintText = "Nickname";
-  static const String hello = "Hello!👋\n";
+  static const String hello = "Hello!👋";
   static const String mealNumberKey = "mealNumber";
   static const String todayLabel = "Today";
   static const String savedLabel = "Saved";

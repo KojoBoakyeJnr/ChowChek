@@ -51,83 +51,50 @@ class _SetNutrientGoalState extends State<SetNutrientGoal> {
             backgroundColor: AppColors.primaryWhite,
             appBar: AppBar(backgroundColor: AppColors.primaryWhite),
             body: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20.0,
+                  horizontal: 20,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
                       children: [
-                        SizedBox(
-                          width: double.infinity,
-
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: RichText(
-                              text: TextSpan(
-                                style: const TextStyle(
-                                  fontFamily: "Aeonik",
-                                  fontSize: 50,
-                                  fontWeight: FontWeight.w400,
-                                  height: 1,
-                                  color: Colors.black,
-                                ),
-                                children: [
-                                  const TextSpan(text: AppStrings.hello),
-                                  TextSpan(
-                                    text: model.userName,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                        Text(
+                          textAlign: TextAlign.center,
+                          "${AppStrings.hello}  ${model.userName}",
+                          style: Theme.of(context).textTheme.headlineLarge,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Text(
-                            textAlign: TextAlign.center,
-                            style: TextStyle(),
-                            AppStrings.customizeYourDaily,
-                          ),
+                        SizedBox(height: 16),
+                        Text(
+                          textAlign: TextAlign.center,
+                          AppStrings.setDailyNutrientsLimit,
+                          style: Theme.of(context).textTheme.headlineMedium,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 30.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  AppStrings.setDailyNutrientsLimit,
-                                  style: TextStyle(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.w400,
-                                    height: 1,
-                                  ),
-                                ),
-                              ),
-                              NutrientMeter(),
-                            ],
-                          ),
+                        SizedBox(height: 16),
+                        NutrientMeter(),
+                        SizedBox(height: 16),
+                        Text(
+                          textAlign: TextAlign.center,
+                          style: TextStyle(),
+                          AppStrings.customizeYourDaily,
                         ),
                       ],
                     ),
-                  ),
-                  AppButton(
-                    buttonName: AppStrings.finish,
-                    onclick: () {
-                      Navigator.of(context).pushNamed(AppRoutes.homePage);
-                      addNutrientLimitsToSharedPref();
-                      setLoginStatus();
-                    },
-                    backgroundColor: AppColors.primaryGreen,
-                    textColor: AppColors.primaryWhite,
-                  ),
-                ],
+
+                    AppButton(
+                      buttonName: AppStrings.finish,
+                      onclick: () {
+                        Navigator.of(context).pushNamed(AppRoutes.homePage);
+                        addNutrientLimitsToSharedPref();
+                        setLoginStatus();
+                      },
+                      backgroundColor: AppColors.primaryGreen,
+                      textColor: AppColors.primaryWhite,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
