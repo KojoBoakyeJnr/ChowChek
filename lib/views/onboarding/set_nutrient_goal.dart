@@ -71,7 +71,7 @@ class _SetNutrientGoalState extends State<SetNutrientGoal> {
                                     child: Text(
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.center,
-                                      "${AppStrings.hello}  ${model.userName}",
+                                      "${AppStrings.hello}, ${model.userName}👋",
                                       style: TextStyle(fontSize: 50),
                                     ),
                                   ),

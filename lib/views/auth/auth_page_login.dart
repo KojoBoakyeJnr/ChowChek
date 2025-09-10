@@ -67,6 +67,7 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
                       AppStrings.login,
                       style: TextStyle(
                         fontSize: 20,
+                        color: AppColors.deepGreen,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

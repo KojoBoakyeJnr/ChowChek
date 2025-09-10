@@ -56,6 +56,7 @@ class _AuthPageSignupState extends State<AuthPageSignup> {
                     AppStrings.signUp,
                     style: const TextStyle(
                       fontSize: 20,
+                      color: AppColors.deepGreen,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

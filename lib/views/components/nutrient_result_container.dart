@@ -90,18 +90,24 @@ class _NutrientResultState extends State<NutrientResult> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            "⚠️ This meal is high in 2 nutrients",
-                            style: TextStyle(
-                              color: const Color.fromARGB(255, 226, 100, 4),
-                              fontWeight: FontWeight.bold,
+                          Flexible(
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              "⚠️ This meal is high in 2 nutrients",
+                              style: TextStyle(
+                                color: const Color.fromARGB(255, 226, 100, 4),
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                          Text(
-                            "Cholesterol in this meal exceeds your daily limit.",
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: const Color.fromARGB(255, 93, 93, 93),
+                          Flexible(
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              "Cholesterol in this meal exceeds your daily limit.",
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: const Color.fromARGB(255, 93, 93, 93),
+                              ),
                             ),
                           ),
                         ],
