@@ -23,13 +23,20 @@ class TodayPage extends StatefulWidget {
   State<TodayPage> createState() => TodayPageState();
 }
 
-TextEditingController _query = TextEditingController();
-bool resultsFound = false;
-bool resultsNotFoundBannerOff = true;
-
 final apiKey = dotenv.env['API_KEY'];
 
 class TodayPageState extends State<TodayPage> {
+  bool resultsFound = false;
+  bool resultsNotFoundBannerOff = true;
+  final TextEditingController _query = TextEditingController();
+  void reset() {
+    _query.clear();
+    Provider.of<NutrientCheckProvider>(context, listen: false).reset();
+    setState(() {
+      resultsFound = false;
+    });
+  }
+
   Future<MealLog> _getAndStoreNutritionData() async {
     List foodName = [];
     double totalFat = 0;
@@ -116,6 +123,12 @@ class TodayPageState extends State<TodayPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _query.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<NutrientCheckProvider>(
       builder:
@@ -150,6 +163,7 @@ class TodayPageState extends State<TodayPage> {
                                 context,
                                 listen: false,
                               ).setMeal(meal);
+
                               LoadingDialog().pop(context);
                             }
                           },

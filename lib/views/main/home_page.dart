@@ -15,15 +15,19 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => HomePageState();
 }
 
+int currentPage = 0;
+
 class HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
     Provider.of<UserDetailsProvider>(context, listen: false).loadAllFromPrefs();
+    setState(() {
+      currentPage = 0;
+    });
   }
 
   List pages = [TodayPage(), SavedPage(), BlacklistPage()];
-  int currentPage = 0;
 
   void changePage(int pageNum) {
     setState(() {
@@ -80,7 +84,10 @@ class HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            body: pages[currentPage],
+            body: IndexedStack(
+              index: currentPage,
+              children: [TodayPage(), SavedPage(), BlacklistPage()],
+            ),
           ),
     );
   }

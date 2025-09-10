@@ -16,5 +16,17 @@ class NutrientCheckProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void reset() {
+    providerMealDetails = MealLog(
+      combinationName: "",
+      totalFat: 0,
+      saturatedFat: 0,
+      sugar: 0,
+      sodium: 0,
+      cholestrol: 0,
+    );
+    notifyListeners();
+  }
+
   NutrientCheckProvider();
 }
