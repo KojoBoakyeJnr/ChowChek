@@ -69,10 +69,18 @@ class _NutrientTileState extends State<NutrientTile> {
                       child: Image.asset(widget.imagePath),
                     ),
                   ),
-                  Text(" ${widget.name} : "),
-                  Text(
-                    "${widget.defaultValue}${widget.unit}",
-                    style: TextStyle(color: widget.activeColor),
+                  Flexible(
+                    child: Text(
+                      " ${widget.name} : ",
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Flexible(
+                    child: Text(
+                      overflow: TextOverflow.ellipsis,
+                      "${widget.defaultValue}${widget.unit}",
+                      style: TextStyle(color: widget.activeColor),
+                    ),
                   ),
                   SizedBox(
                     width: 150,

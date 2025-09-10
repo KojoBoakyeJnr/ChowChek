@@ -56,44 +56,74 @@ class _SetNutrientGoalState extends State<SetNutrientGoal> {
                   vertical: 20.0,
                   horizontal: 20,
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        Text(
-                          textAlign: TextAlign.center,
-                          "${AppStrings.hello}  ${model.userName}",
-                          style: Theme.of(context).textTheme.headlineLarge,
+                child: Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                      "${AppStrings.hello}  ${model.userName}",
+                                      style: TextStyle(fontSize: 50),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 16),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                      AppStrings.setDailyNutrientsLimit,
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 16),
+                              NutrientMeter(),
+                              SizedBox(height: 16),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(),
+                                      AppStrings.customizeYourDaily,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                        SizedBox(height: 16),
-                        Text(
-                          textAlign: TextAlign.center,
-                          AppStrings.setDailyNutrientsLimit,
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                        SizedBox(height: 16),
-                        NutrientMeter(),
-                        SizedBox(height: 16),
-                        Text(
-                          textAlign: TextAlign.center,
-                          style: TextStyle(),
-                          AppStrings.customizeYourDaily,
-                        ),
-                      ],
-                    ),
+                      ),
 
-                    AppButton(
-                      buttonName: AppStrings.finish,
-                      onclick: () {
-                        Navigator.of(context).pushNamed(AppRoutes.homePage);
-                        addNutrientLimitsToSharedPref();
-                        setLoginStatus();
-                      },
-                      backgroundColor: AppColors.primaryGreen,
-                      textColor: AppColors.primaryWhite,
-                    ),
-                  ],
+                      AppButton(
+                        buttonName: AppStrings.finish,
+                        onclick: () {
+                          Navigator.of(context).pushNamed(AppRoutes.homePage);
+                          addNutrientLimitsToSharedPref();
+                          setLoginStatus();
+                        },
+                        backgroundColor: AppColors.primaryGreen,
+                        textColor: AppColors.primaryWhite,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
