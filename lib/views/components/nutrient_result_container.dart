@@ -62,22 +62,29 @@ class _NutrientResultState extends State<NutrientResult> {
         //store exceeded nutrients
         List<String> exceededNutrients = [];
 
-        if (totalFatLimit != null && totalFatValue > totalFatLimit) {
+        if (totalFatValue > totalFatLimit!) {
           exceededNutrients.add("Total Fat");
         }
-        if (satFatLimit != null && satFatValue > satFatLimit) {
+        if (satFatValue > satFatLimit!) {
           exceededNutrients.add("Saturated Fat");
         }
-        if (sodiumLimit != null && sodiumValue > sodiumLimit) {
+        if (sodiumValue > sodiumLimit!) {
           exceededNutrients.add("Sodium");
         }
-        if (sugarLimit != null && sugarValue > sugarLimit) {
+        if (sugarValue > sugarLimit!) {
           exceededNutrients.add("Sugar");
         }
-        if (cholesterolLimit != null && cholesterolValue > cholesterolLimit) {
+        if (cholesterolValue > cholesterolLimit!) {
           exceededNutrients.add("Cholesterol");
         }
 
+        ////---
+        /// only widgets in build
+        /// only callbacks
+        ///
+        ///
+        ///
+        ///
         return Container(
           decoration: BoxDecoration(
             color: AppColors.primaryGreen,

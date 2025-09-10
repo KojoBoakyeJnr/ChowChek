@@ -22,54 +22,62 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<UserDetailsProvider>(
-      builder:
-          (context, model, child) => Scaffold(
-            backgroundColor: AppColors.primaryWhite,
-            body: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 20,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: SizedBox(
-                          width: 100,
-                          child: Image.asset(AppImages.logo),
-                        ),
-                      ),
-                    ),
-
-                    Expanded(
-                      flex: 1,
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: AppButton(
-                          textColor: AppColors.primaryWhite,
-                          backgroundColor: AppColors.primaryGreen,
-                          buttonName: AppStrings.getstarted,
-                          onclick: () {
-                            (model.isLoggedIn)
-                                ? Navigator.of(
-                                  context,
-                                ).pushNamed(AppRoutes.homePage)
-                                : Navigator.of(
-                                  context,
-                                ).pushNamed(AppRoutes.signUp);
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
+    return Scaffold(
+      backgroundColor: AppColors.primaryWhite,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: const SplashLogo(),
                 ),
               ),
-            ),
+
+              Expanded(
+                flex: 1,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SplashButton(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SplashLogo extends StatelessWidget {
+  const SplashLogo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(width: 100, child: Image.asset(AppImages.logo));
+  }
+}
+
+class SplashButton extends StatelessWidget {
+  const SplashButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<UserDetailsProvider>(
+      builder:
+          (context, value, child) => AppButton(
+            textColor: AppColors.primaryWhite,
+            backgroundColor: AppColors.primaryGreen,
+            buttonName: AppStrings.getstarted,
+            onclick: () {
+              (value.isLoggedIn)
+                  ? Navigator.of(context).pushNamed(AppRoutes.homePage)
+                  : Navigator.of(context).pushNamed(AppRoutes.signUp);
+            },
           ),
     );
   }

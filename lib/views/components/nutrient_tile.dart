@@ -71,6 +71,7 @@ class _NutrientTileState extends State<NutrientTile> {
                   ),
                   Flexible(
                     child: Text(
+                      textAlign: TextAlign.center,
                       " ${widget.name} : ",
                       overflow: TextOverflow.ellipsis,
                     ),
