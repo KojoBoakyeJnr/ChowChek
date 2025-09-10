@@ -117,8 +117,10 @@ class _NutrientResultState extends State<NutrientResult> {
                           Flexible(
                             child: Text(
                               overflow: TextOverflow.ellipsis,
-                              (exceededNutrients.length > 1)
-                                  ? "${exceededNutrients.join(" & ")} in this meal exceeds your daily limit."
+                              (exceededNutrients.length == 2)
+                                  ? "${exceededNutrients.join(" & ")} in this meal exceed your daily limit."
+                                  : (exceededNutrients.length > 2)
+                                  ? "${exceededNutrients[0]} and ${exceededNutrients.length - 1} other nutrients in this meal exceed your daily limit."
                                   : "${exceededNutrients[0]} in this meal exceeds your daily limit.",
                               style: TextStyle(
                                 fontSize: 10,

@@ -45,24 +45,34 @@ class _UpdateNutrientLimitsState extends State<UpdateNutrientLimits> {
             backgroundColor: AppColors.primaryWhite,
             appBar: AppBar(backgroundColor: AppColors.primaryWhite),
             body: SafeArea(
-              child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            AppStrings.updateDailyNutrientsLimit,
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.w400,
-                              height: 1,
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Center(
+                                child: Flexible(
+                                  child: Text(
+                                    overflow: TextOverflow.ellipsis,
+                                    AppStrings.updateDailyNutrientsLimit,
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w400,
+                                      height: 1,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
+                        SizedBox(height: 16),
                         NutrientMeter(),
                       ],
                     ),
