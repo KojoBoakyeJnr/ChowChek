@@ -156,15 +156,9 @@ class TodayPageState extends State<TodayPage> {
                           backgroundColor: AppColors.deepGreen,
                           textColor: AppColors.primaryWhite,
                         ),
+                        SizedBox(height: 16),
                         (resultsFound)
-                            ? Padding(
-                              padding: const EdgeInsets.only(
-                                top: 8,
-                                left: 10,
-                                right: 10,
-                              ),
-                              child: NutrientResult(),
-                            )
+                            ? NutrientResult()
                             : (!resultsFound && !resultsNotFoundBannerOff)
                             ? ResultsEmptyState()
                             : Container(),

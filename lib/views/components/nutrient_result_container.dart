@@ -17,7 +17,6 @@ class NutrientResult extends StatefulWidget {
 }
 
 class _NutrientResultState extends State<NutrientResult> {
-  bool showWarning = true;
   String percentString(double value, dynamic limitRaw) {
     final limit = (limitRaw is num) ? limitRaw.toDouble() : 0.0;
     if (limit <= 0.0) return "0.0%";
@@ -60,32 +59,45 @@ class _NutrientResultState extends State<NutrientResult> {
         final cholesterolLimit =
             modelUserDetails.nutrientLoggedLimits[AppStrings.cholesterolKey];
 
+        //store exceeded nutrients
+        List<String> exceededNutrients = [];
+
+        if (totalFatLimit != null && totalFatValue > totalFatLimit) {
+          exceededNutrients.add("Total Fat");
+        }
+        if (satFatLimit != null && satFatValue > satFatLimit) {
+          exceededNutrients.add("Saturated Fat");
+        }
+        if (sodiumLimit != null && sodiumValue > sodiumLimit) {
+          exceededNutrients.add("Sodium");
+        }
+        if (sugarLimit != null && sugarValue > sugarLimit) {
+          exceededNutrients.add("Sugar");
+        }
+        if (cholesterolLimit != null && cholesterolValue > cholesterolLimit) {
+          exceededNutrients.add("Cholesterol");
+        }
+
         return Container(
           decoration: BoxDecoration(
             color: AppColors.primaryGreen,
             borderRadius: BorderRadius.circular(16),
           ),
           padding: const EdgeInsets.all(20),
-          margin: const EdgeInsets.symmetric(horizontal: 16),
+
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //----Warning/Feedback-----//
-              (showWarning == true)
-                  ? Padding(
-                    padding: const EdgeInsets.only(
-                      top: 10.0,
-                      bottom: 20,
-                      left: 10,
-                      right: 10,
+              (exceededNutrients.isNotEmpty)
+                  ? Container(
+                    decoration: BoxDecoration(
+                      color: Colors.amber[50],
+                      borderRadius: BorderRadiusDirectional.circular(10),
                     ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.amber[50],
-                        borderRadius: BorderRadiusDirectional.circular(10),
-                      ),
-                      width: 350,
-                      height: 40,
+                    width: double.infinity,
+                    height: 40,
+                    child: Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -93,7 +105,9 @@ class _NutrientResultState extends State<NutrientResult> {
                           Flexible(
                             child: Text(
                               overflow: TextOverflow.ellipsis,
-                              "⚠️ This meal is high in 2 nutrients",
+                              (exceededNutrients.length > 1)
+                                  ? "⚠️ This meal is high in ${exceededNutrients.length} nutrients"
+                                  : "⚠️ This meal is high in ${exceededNutrients[0]}",
                               style: TextStyle(
                                 color: const Color.fromARGB(255, 226, 100, 4),
                                 fontWeight: FontWeight.bold,
@@ -103,7 +117,9 @@ class _NutrientResultState extends State<NutrientResult> {
                           Flexible(
                             child: Text(
                               overflow: TextOverflow.ellipsis,
-                              "Cholesterol in this meal exceeds your daily limit.",
+                              (exceededNutrients.length > 1)
+                                  ? "${exceededNutrients.join(" & ")} in this meal exceeds your daily limit."
+                                  : "${exceededNutrients[0]} in this meal exceeds your daily limit.",
                               style: TextStyle(
                                 fontSize: 10,
                                 color: const Color.fromARGB(255, 93, 93, 93),
@@ -115,7 +131,7 @@ class _NutrientResultState extends State<NutrientResult> {
                     ),
                   )
                   : Container(),
-
+              const SizedBox(height: 16),
               // title
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,7 +151,7 @@ class _NutrientResultState extends State<NutrientResult> {
                 ],
               ),
 
-              const SizedBox(height: 12),
+              const SizedBox(height: 16),
 
               // Total Fat
               NutrientRow(
