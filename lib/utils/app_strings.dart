@@ -58,7 +58,7 @@ class AppStrings {
   static const String whatDidYouEat = "What did you eat today?";
   static const String todayHintText = "Beans with plantain and sausage";
   static const String chekButtonName = "Chek!";
-  static const String serverErrorTryAgainLater = "serverErrorTryAgainLater";
+  static const String serverErrorTryAgainLater = "Server Error Try Again Later";
   static const String invalidEmail = 'Invalid email format';
   static const String userDisabled = 'Account disabled';
   static const String userNotFound = 'User not found';
