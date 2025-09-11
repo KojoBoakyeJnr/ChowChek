@@ -20,6 +20,10 @@ class _SetUsernameState extends State<SetUsername> {
   @override
   void initState() {
     super.initState();
+    checkStatusOfInputField();
+  }
+
+  void checkStatusOfInputField() {
     _userNameController.addListener(() {
       if (_userNameController.text.isNotEmpty) {
         setState(() {
