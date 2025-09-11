@@ -20,6 +20,22 @@ class AuthService {
     }
   }
 
+  Future<String> verifyAccount(
+    TextEditingController emailController,
+    TextEditingController passwordController,
+  ) async {
+    try {
+      final auth = FirebaseAuth.instance;
+      await auth.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      return "Success";
+    } on FirebaseAuthException catch (error) {
+      return someErrorMessage(error.code);
+    }
+  }
+
   String someErrorMessage(errorCode) {
     switch (errorCode) {
       case 'email-already-in-use':
@@ -28,6 +44,20 @@ class AuthService {
         return AppStrings.invalidEmail;
       case 'weak-password':
         return AppStrings.weakPassword;
+      case 'user-disabled':
+        return AppStrings.userDisabled;
+      case 'user-not-found':
+        return AppStrings.userNotFound;
+      case 'wrong-password':
+        return AppStrings.wrongPassword;
+      case 'too-many-requests':
+        return AppStrings.tooManyRequests;
+      case 'operation-not-allowed':
+        return AppStrings.operationNotAllowed;
+      case 'network-request-failed':
+        return AppStrings.networkError;
+      case 'invalid-credential':
+        return AppStrings.invalidCredential;
       default:
         return AppStrings.generic;
     }

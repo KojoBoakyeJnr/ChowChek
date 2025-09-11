@@ -1,10 +1,10 @@
+import 'package:chowchek/services/auth_service.dart';
 import 'package:chowchek/views/components/loading_dialog.dart';
 import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_strings.dart';
 import 'package:chowchek/utils/app_text_form_fields.dart';
 import 'package:chowchek/utils/routes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,30 +24,37 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
   bool passwordFilled = false;
   String loginErrorMessage = "";
 
+  void setLoginStatus() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool(AppStrings.loginKey, true);
+  }
+
   @override
   void initState() {
     super.initState();
+    checkStatusOfInputField();
+  }
+
+  void checkStatusOfInputField() {
     _emailController.addListener(() {
-      if (_emailController.text.isNotEmpty) {
-        setState(() {
-          emailFilled = true;
-        });
-      } else {
-        setState(() {
-          emailFilled = false;
-        });
-      }
+      setInputFieldFillState(_emailController);
     });
 
     _passwordController.addListener(() {
-      if (_passwordController.text.isNotEmpty) {
-        setState(() {
-          passwordFilled = true;
-        });
-      } else {
-        passwordFilled = false;
-      }
+      setInputFieldFillState(_passwordController);
     });
+  }
+
+  setInputFieldFillState(TextEditingController controller) {
+    if (controller == _emailController) {
+      setState(() {
+        emailFilled = controller.text.isNotEmpty;
+      });
+    } else {
+      setState(() {
+        passwordFilled = controller.text.isNotEmpty;
+      });
+    }
   }
 
   @override
@@ -66,7 +73,7 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
                     child: Text(
                       AppStrings.login,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 50,
                         color: AppColors.deepGreen,
                         fontWeight: FontWeight.bold,
                       ),
@@ -101,10 +108,14 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
                           ),
                           SizedBox(height: 16),
                           SizedBox(
-                            child: Text(
-                              loginErrorMessage,
-                              textAlign: TextAlign.start,
-                              style: TextStyle(color: AppColors.primaryRed),
+                            child: Row(
+                              children: [
+                                Text(
+                                  loginErrorMessage,
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(color: AppColors.primaryRed),
+                                ),
+                              ],
                             ),
                           ),
                           SizedBox(height: 16),
@@ -114,8 +125,25 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
                             onclick:
                                 (emailFilled && passwordFilled)
                                     ? () async {
-                                      _verifyAccount();
-                                      setLoginStatus();
+                                      LoadingDialog().show(context);
+                                      final response = await AuthService()
+                                          .verifyAccount(
+                                            _emailController,
+                                            _passwordController,
+                                          );
+
+                                      LoadingDialog().pop(context);
+
+                                      if (response == "Success") {
+                                        Navigator.of(
+                                          context,
+                                        ).pushNamed(AppRoutes.homePage);
+                                        setLoginStatus();
+                                      }
+
+                                      setState(() {
+                                        loginErrorMessage = response;
+                                      });
                                     }
                                     : () {
                                       null;
@@ -176,60 +204,5 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
         ),
       ),
     );
-  }
-
-  void setLoginStatus() async {
-    final SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setBool(AppStrings.loginKey, true);
-  }
-
-  void _verifyAccount() async {
-    try {
-      LoadingDialog().show(context);
-      final auth = FirebaseAuth.instance;
-      await auth.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
-
-      // ignore: use_build_context_synchronously
-      Navigator.of(context).pushNamed("homePage");
-    } on FirebaseAuthException catch (error) {
-      String errorMessage;
-
-      switch (error.code) {
-        case 'invalid-email':
-          errorMessage = AppStrings.invalidEmail;
-          break;
-        case 'user-disabled':
-          errorMessage = AppStrings.userDisabled;
-          break;
-        case 'user-not-found':
-          errorMessage = AppStrings.userNotFound;
-          break;
-        case 'wrong-password':
-          errorMessage = AppStrings.wrongPassword;
-          break;
-        case 'too-many-requests':
-          errorMessage = AppStrings.tooManyRequests;
-          break;
-        case 'operation-not-allowed':
-          errorMessage = AppStrings.operationNotAllowed;
-          break;
-        case 'network-request-failed':
-          errorMessage = AppStrings.networkError;
-          break;
-        case 'invalid-credential':
-          errorMessage = AppStrings.invalidCredential;
-          break;
-        default:
-          errorMessage = AppStrings.loginFailed;
-      }
-
-      setState(() {
-        loginErrorMessage = errorMessage;
-      });
-      LoadingDialog().pop(context);
-    }
   }
 }
