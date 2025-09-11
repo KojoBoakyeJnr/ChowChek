@@ -233,22 +233,3 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
     }
   }
 }
-
-
-//---------------column
-
-//-----Expanded 1
-  //----Row
-    //--Text -----(if text is long put text in an expanded first)
-
-
-//------------Expanded 2
-   //---------column
-     //--text field
-     //--text field
-     //--continue button
-
-
-//-----Expanded 3
-   //----column
-     //--Text

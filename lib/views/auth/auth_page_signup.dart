@@ -1,10 +1,10 @@
+import 'package:chowchek/services/auth_service.dart';
 import 'package:chowchek/views/components/loading_dialog.dart';
 import 'package:chowchek/utils/app_button.dart';
 import 'package:chowchek/utils/app_colors.dart';
 import 'package:chowchek/utils/app_strings.dart';
 import 'package:chowchek/utils/app_text_form_fields.dart';
 import 'package:chowchek/utils/routes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +18,6 @@ class AuthPageSignup extends StatefulWidget {
 class _AuthPageSignupState extends State<AuthPageSignup> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
   bool emailFilled = false;
   bool passwordFilled = false;
   String signUpErrorMessage = "";
@@ -26,17 +25,29 @@ class _AuthPageSignupState extends State<AuthPageSignup> {
   @override
   void initState() {
     super.initState();
+    checkStatusOfInputField();
+  }
+
+  void checkStatusOfInputField() {
     _emailController.addListener(() {
-      setState(() {
-        emailFilled = _emailController.text.isNotEmpty;
-      });
+      setInputFieldFillState(_emailController);
     });
 
     _passwordController.addListener(() {
-      setState(() {
-        passwordFilled = _passwordController.text.isNotEmpty;
-      });
+      setInputFieldFillState(_passwordController);
     });
+  }
+
+  setInputFieldFillState(TextEditingController controller) {
+    if (controller == _emailController) {
+      setState(() {
+        emailFilled = controller.text.isNotEmpty;
+      });
+    } else {
+      setState(() {
+        passwordFilled = controller.text.isNotEmpty;
+      });
+    }
   }
 
   @override
@@ -55,7 +66,7 @@ class _AuthPageSignupState extends State<AuthPageSignup> {
                   child: Text(
                     AppStrings.signUp,
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 50,
                       color: AppColors.deepGreen,
                       fontWeight: FontWeight.bold,
                     ),
@@ -102,8 +113,25 @@ class _AuthPageSignupState extends State<AuthPageSignup> {
                         buttonName: AppStrings.createAccount,
                         onclick:
                             (emailFilled && passwordFilled)
-                                ? () {
-                                  _createAccount();
+                                ? () async {
+                                  LoadingDialog().show(context);
+                                  final response = await AuthService()
+                                      .createAccount(
+                                        _emailController,
+                                        _passwordController,
+                                      );
+
+                                  setState(() {
+                                    signUpErrorMessage = response;
+                                  });
+
+                                  LoadingDialog().pop(context);
+
+                                  (response == "Success")
+                                      ? Navigator.of(
+                                        context,
+                                      ).pushNamed(AppRoutes.setUserName)
+                                      : null;
                                 }
                                 : () {
                                   null;
@@ -163,31 +191,5 @@ class _AuthPageSignupState extends State<AuthPageSignup> {
         ),
       ),
     );
-  }
-
-  void _createAccount() async {
-    try {
-      LoadingDialog().show(context);
-      final auth = FirebaseAuth.instance;
-      await auth.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
-      Navigator.of(context).pushNamed(AppRoutes.setUserName);
-    } on FirebaseAuthException catch (error) {
-      String errorMessage;
-      if (error.code == 'email-already-in-use') {
-        errorMessage = AppStrings.emailAlreadyInUse;
-      } else if (error.code == 'invalid-email') {
-        errorMessage = AppStrings.invalidEmail;
-      } else if (error.code == 'weak-password') {
-        errorMessage = AppStrings.weakPassword;
-      } else {
-        errorMessage = AppStrings.generic;
-      }
-      setState(() {});
-      signUpErrorMessage = errorMessage;
-    }
-    LoadingDialog().pop(context);
   }
 }
