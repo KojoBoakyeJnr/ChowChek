@@ -47,11 +47,14 @@ class RemoveConfirmation {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: Text(
-                            AppStrings.noNotreally,
-                            style: TextStyle(
-                              color: AppColors.primaryWhite,
-                              fontWeight: FontWeight.w800,
+                          child: Flexible(
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              AppStrings.noNotreally,
+                              style: TextStyle(
+                                color: AppColors.primaryWhite,
+                                fontWeight: FontWeight.w800,
+                              ),
                             ),
                           ),
                         ),
@@ -71,11 +74,14 @@ class RemoveConfirmation {
                             remove();
                             Navigator.of(context).pop();
                           },
-                          child: Text(
-                            AppStrings.yesIam,
-                            style: TextStyle(
-                              color: AppColors.primaryWhite,
-                              fontWeight: FontWeight.w800,
+                          child: Flexible(
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              AppStrings.yesIam,
+                              style: TextStyle(
+                                color: AppColors.primaryWhite,
+                                fontWeight: FontWeight.w800,
+                              ),
                             ),
                           ),
                         ),

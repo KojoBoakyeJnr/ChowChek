@@ -7,23 +7,28 @@ class ResultsEmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Container(
-        width: 350,
-        height: 70,
-        decoration: BoxDecoration(
-          color: AppColors().lightRed,
-          borderRadius: BorderRadiusDirectional.circular(10),
-        ),
-        child: Center(
-          child: Text(
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontStyle: FontStyle.italic,
-              color: AppColors.primaryRed,
-            ),
-            AppStrings.notFoundErrorMessage,
+    return Container(
+      height: 70,
+      decoration: BoxDecoration(
+        color: AppColors().lightRed,
+        borderRadius: BorderRadiusDirectional.circular(10),
+      ),
+      child: Center(
+        child: Flexible(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontStyle: FontStyle.italic,
+                  color: AppColors.primaryRed,
+                ),
+                AppStrings.notFoundErrorMessage,
+              ),
+            ],
           ),
         ),
       ),
