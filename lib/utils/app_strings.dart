@@ -86,4 +86,9 @@ class AppStrings {
   static const String areYouSure = "Are you sure about this?";
   static const String noNotreally = "no, not really🤔";
   static const String yesIam = "yes i am 👍🏾";
+  static const String loggingIn = "Logging you in...";
+  static const String signingUp = "Signing you up...";
+  static const String gettingMealDets = "Getting meal details...";
+  static const String settingUp = "Setting you up...";
+  static const String updatingLimits = "Updating limits...";
 }

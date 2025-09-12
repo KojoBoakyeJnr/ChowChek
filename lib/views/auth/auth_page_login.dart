@@ -127,7 +127,10 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
                             onclick:
                                 (emailFilled && passwordFilled)
                                     ? () async {
-                                      LoadingDialog().show(context);
+                                      LoadingDialog().show(
+                                        context,
+                                        AppStrings.loggingIn,
+                                      );
                                       final response = await AuthService()
                                           .verifyAccount(
                                             _emailController,

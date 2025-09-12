@@ -48,7 +48,7 @@ class TodayPageState extends State<TodayPage> {
   }
 
   chekFunction() async {
-    LoadingDialog().show(context);
+    LoadingDialog().show(context, AppStrings.gettingMealDets);
     if (_query.text.isNotEmpty) {
       final service = FetchNutrientsService(query: _query.text.trim());
 

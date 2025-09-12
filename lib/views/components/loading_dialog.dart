@@ -3,7 +3,7 @@ import 'package:chowchek/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class LoadingDialog {
-  void show(BuildContext context) {
+  void show(BuildContext context, String text) {
     showDialog(
       useRootNavigator: true,
       context: context,
@@ -29,7 +29,7 @@ class LoadingDialog {
                 ),
 
                 Text(
-                  AppStrings.holdOn,
+                  text,
                   style: TextStyle(
                     color: AppColors.primaryGreen,
                     fontSize: 16,

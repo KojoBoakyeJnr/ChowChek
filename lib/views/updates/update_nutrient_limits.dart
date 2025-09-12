@@ -1,4 +1,5 @@
 import 'package:chowchek/utils/routes.dart';
+import 'package:chowchek/views/components/loading_dialog.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:chowchek/views/components/nutrient_meter.dart';
@@ -21,6 +22,12 @@ class _UpdateNutrientLimitsState extends State<UpdateNutrientLimits> {
   void initState() {
     super.initState();
     Provider.of<UserDetailsProvider>(context, listen: false).loadAllFromPrefs();
+  }
+
+  Future<void> popdialogafter6sec(context) {
+    return Future.delayed(Duration(seconds: 6), () {
+      LoadingDialog().pop(context);
+    });
   }
 
   void addNutrientLimitsToSharedPref() async {
@@ -79,7 +86,12 @@ class _UpdateNutrientLimitsState extends State<UpdateNutrientLimits> {
 
                     AppButton(
                       buttonName: AppStrings.update,
-                      onclick: () {
+                      onclick: () async {
+                        LoadingDialog().show(
+                          context,
+                          AppStrings.updatingLimits,
+                        );
+                        await popdialogafter6sec(context);
                         Navigator.of(context).pushNamed(AppRoutes.homePage);
                         addNutrientLimitsToSharedPref();
                       },

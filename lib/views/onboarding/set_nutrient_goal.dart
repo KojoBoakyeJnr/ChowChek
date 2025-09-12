@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:chowchek/views/components/loading_dialog.dart';
 import 'package:chowchek/views/components/nutrient_meter.dart';
 import 'package:chowchek/providers/user_details_provider.dart';
 import 'package:chowchek/utils/app_button.dart';
@@ -22,6 +23,12 @@ class _SetNutrientGoalState extends State<SetNutrientGoal> {
   void initState() {
     super.initState();
     Provider.of<UserDetailsProvider>(context, listen: false).loadAllFromPrefs();
+  }
+
+  Future<void> popdialogafter6sec(context) {
+    return Future.delayed(Duration(seconds: 6), () {
+      LoadingDialog().pop(context);
+    });
   }
 
   void addNutrientLimitsToSharedPref() async {
@@ -114,10 +121,12 @@ class _SetNutrientGoalState extends State<SetNutrientGoal> {
 
                       AppButton(
                         buttonName: AppStrings.finish,
-                        onclick: () {
-                          Navigator.of(context).pushNamed(AppRoutes.homePage);
+                        onclick: () async {
+                          LoadingDialog().show(context, AppStrings.settingUp);
+                          await popdialogafter6sec(context);
                           addNutrientLimitsToSharedPref();
                           setLoginStatus();
+                          Navigator.of(context).pushNamed(AppRoutes.homePage);
                         },
                         backgroundColor: AppColors.primaryGreen,
                         textColor: AppColors.primaryWhite,

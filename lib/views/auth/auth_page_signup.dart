@@ -117,7 +117,10 @@ class _AuthPageSignupState extends State<AuthPageSignup> {
                         onclick:
                             (emailFilled && passwordFilled)
                                 ? () async {
-                                  LoadingDialog().show(context);
+                                  LoadingDialog().show(
+                                    context,
+                                    AppStrings.signingUp,
+                                  );
                                   final response = await AuthService()
                                       .createAccount(
                                         _emailController,
