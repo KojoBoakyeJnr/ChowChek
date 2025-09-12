@@ -118,6 +118,7 @@ class TodayPageState extends State<TodayPage> {
                         ),
                         SizedBox(height: 16),
                         AppTextFormFields(
+                          inputType: TextInputType.text,
                           hintText: AppStrings.todayHintText,
                           controller: _query,
                           fill: AppColors.textFieldGray,

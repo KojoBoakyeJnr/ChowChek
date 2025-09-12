@@ -65,6 +65,7 @@ class _SetUsernameState extends State<SetUsername> {
                     ),
                     SizedBox(height: 16),
                     AppTextFormFields(
+                      inputType: TextInputType.text,
                       controller: _userNameController,
                       leading: Icon(Icons.person_2_outlined),
                       hintText: AppStrings.usernameHintText,

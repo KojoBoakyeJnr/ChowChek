@@ -87,6 +87,7 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
                       child: Column(
                         children: [
                           AppTextFormFields(
+                            inputType: TextInputType.emailAddress,
                             fill: AppColors.textFieldGray,
                             leading: Icon(
                               Icons.email,
@@ -97,6 +98,7 @@ class _AuthPageLoginState extends State<AuthPageLogin> {
                           ),
                           SizedBox(height: 16),
                           AppTextFormFields(
+                            inputType: TextInputType.visiblePassword,
                             fill: AppColors.textFieldGray,
                             leading: Icon(
                               Icons.password,

@@ -81,6 +81,7 @@ class _AuthPageSignupState extends State<AuthPageSignup> {
                   child: Column(
                     children: [
                       AppTextFormFields(
+                        inputType: TextInputType.emailAddress,
                         fill: AppColors.textFieldGray,
                         leading: Icon(Icons.email, color: AppColors.primaryAsh),
                         controller: _emailController,
@@ -88,11 +89,13 @@ class _AuthPageSignupState extends State<AuthPageSignup> {
                       ),
                       const SizedBox(height: 16),
                       AppTextFormFields(
+                        inputType: TextInputType.visiblePassword,
                         fill: AppColors.textFieldGray,
                         leading: Icon(
                           Icons.password,
                           color: AppColors.primaryAsh,
                         ),
+
                         obscureText: true,
                         controller: _passwordController,
                         hintText: AppStrings.password,

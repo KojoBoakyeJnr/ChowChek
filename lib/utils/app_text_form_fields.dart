@@ -8,6 +8,8 @@ class AppTextFormFields extends StatefulWidget {
   bool obscureText;
   Icon leading;
   Color fill;
+  TextInputType inputType;
+
   AppTextFormFields({
     super.key,
     required this.controller,
@@ -15,6 +17,7 @@ class AppTextFormFields extends StatefulWidget {
     this.obscureText = false,
     this.leading = const Icon(null),
     this.fill = Colors.white,
+    required this.inputType,
   });
 
   @override
@@ -27,6 +30,7 @@ class _AppTextFormFieldsState extends State<AppTextFormFields> {
     return SizedBox(
       height: 60,
       child: TextFormField(
+        keyboardType: widget.inputType,
         obscureText: widget.obscureText,
         cursorColor: AppColors.primaryGreen,
         controller: widget.controller,
