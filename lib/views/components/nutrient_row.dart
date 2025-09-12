@@ -36,6 +36,7 @@ class _NutrientRowState extends State<NutrientRow> {
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 SizedBox(
                   width: 30,
@@ -44,6 +45,7 @@ class _NutrientRowState extends State<NutrientRow> {
                 ),
                 const SizedBox(width: 12),
                 Expanded(
+                  flex: 2,
                   child: Text(
                     widget.label,
                     style: const TextStyle(
@@ -52,7 +54,20 @@ class _NutrientRowState extends State<NutrientRow> {
                     ),
                   ),
                 ),
-                Text(widget.amount, style: const TextStyle(fontSize: 15)),
+                Flexible(
+                  flex: 1,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          overflow: TextOverflow.ellipsis,
+                          widget.amount,
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 const SizedBox(width: 12),
                 Container(
                   padding: const EdgeInsets.symmetric(

@@ -1,3 +1,4 @@
+import 'package:chowchek/services/evaluator.dart';
 import 'package:chowchek/views/components/blacklist_save_buttons.dart';
 import 'package:chowchek/views/components/nutrient_row.dart';
 import 'package:chowchek/providers/nutrient_check_provider.dart';
@@ -17,13 +18,6 @@ class NutrientResult extends StatefulWidget {
 }
 
 class _NutrientResultState extends State<NutrientResult> {
-  String percentString(double value, dynamic limitRaw) {
-    final limit = (limitRaw is num) ? limitRaw.toDouble() : 0.0;
-    if (limit <= 0.0) return "0.0%";
-    final percentage = (value / limit) * 100.0;
-    return "${percentage.toStringAsFixed(1)}%";
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer3<
@@ -38,53 +32,18 @@ class _NutrientResultState extends State<NutrientResult> {
         modelSavedMeals,
         child,
       ) {
-        // recorded values (from meal)
+        final meal = modelNutrients.providerMealDetails;
+        final limit = modelUserDetails.nutrientLoggedLimits;
+        final evaluate = Evaluator().evaluate(meal, limit);
+        final percentages = evaluate["percentages"] as Map<String, double>;
+        final warningTitle = evaluate["warningTitle"] as String;
+        final warningDetail = evaluate["warningDetails"] as String;
+        final totalFatValue = meal.totalFat;
+        final satFatValue = meal.saturatedFat;
+        final sodiumValue = meal.sodium;
+        final sugarValue = meal.sugar;
+        final cholesterolValue = meal.cholestrol;
 
-        final totalFatValue = modelNutrients.providerMealDetails.totalFat;
-        final satFatValue = modelNutrients.providerMealDetails.saturatedFat;
-        final sodiumValue = modelNutrients.providerMealDetails.sodium;
-        final sugarValue = modelNutrients.providerMealDetails.sugar;
-        final cholesterolValue = modelNutrients.providerMealDetails.cholestrol;
-
-        // limits (from user details -> logged)
-
-        final totalFatLimit =
-            modelUserDetails.nutrientLoggedLimits[AppStrings.totalfatKey];
-        final satFatLimit =
-            modelUserDetails.nutrientLoggedLimits[AppStrings.satFatKey];
-        final sodiumLimit =
-            modelUserDetails.nutrientLoggedLimits[AppStrings.sodiumKey];
-        final sugarLimit =
-            modelUserDetails.nutrientLoggedLimits[AppStrings.sugarKey];
-        final cholesterolLimit =
-            modelUserDetails.nutrientLoggedLimits[AppStrings.cholesterolKey];
-
-        //store exceeded nutrients
-        List<String> exceededNutrients = [];
-
-        if (totalFatValue > totalFatLimit!) {
-          exceededNutrients.add("Total Fat");
-        }
-        if (satFatValue > satFatLimit!) {
-          exceededNutrients.add("Saturated Fat");
-        }
-        if (sodiumValue > sodiumLimit!) {
-          exceededNutrients.add("Sodium");
-        }
-        if (sugarValue > sugarLimit!) {
-          exceededNutrients.add("Sugar");
-        }
-        if (cholesterolValue > cholesterolLimit!) {
-          exceededNutrients.add("Cholesterol");
-        }
-
-        ////---
-        /// only widgets in build
-        /// only callbacks
-        ///
-        ///
-        ///
-        ///
         return Container(
           decoration: BoxDecoration(
             color: AppColors.primaryGreen,
@@ -96,7 +55,7 @@ class _NutrientResultState extends State<NutrientResult> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //----Warning/Feedback-----//
-              (exceededNutrients.isNotEmpty)
+              (warningTitle != "" && warningDetail != "")
                   ? Container(
                     decoration: BoxDecoration(
                       color: Colors.amber[50],
@@ -109,26 +68,20 @@ class _NutrientResultState extends State<NutrientResult> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Flexible(
+                          Expanded(
                             child: Text(
                               overflow: TextOverflow.ellipsis,
-                              (exceededNutrients.length > 1)
-                                  ? "⚠️ This meal is high in ${exceededNutrients.length} nutrients"
-                                  : "⚠️ This meal is high in ${exceededNutrients[0]}",
+                              warningTitle,
                               style: TextStyle(
                                 color: const Color.fromARGB(255, 226, 100, 4),
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                          Flexible(
+                          Expanded(
                             child: Text(
                               overflow: TextOverflow.ellipsis,
-                              (exceededNutrients.length == 2)
-                                  ? "${exceededNutrients.join(" & ")} in this meal exceed your daily limit."
-                                  : (exceededNutrients.length > 2)
-                                  ? "${exceededNutrients[0]} and ${exceededNutrients.length - 1} other nutrients in this meal exceed your daily limit."
-                                  : "${exceededNutrients[0]} in this meal exceeds your daily limit.",
+                              warningDetail,
                               style: TextStyle(
                                 fontSize: 10,
                                 color: const Color.fromARGB(255, 93, 93, 93),
@@ -139,7 +92,7 @@ class _NutrientResultState extends State<NutrientResult> {
                       ),
                     ),
                   )
-                  : Container(),
+                  : Container(child: null),
               const SizedBox(height: 16),
               // title
               Row(
@@ -167,7 +120,8 @@ class _NutrientResultState extends State<NutrientResult> {
                 imagePath: AppImages.totalFat,
                 label: AppStrings.totalfat,
                 amount: "${totalFatValue.toStringAsFixed(1)}g",
-                percentage: percentString(totalFatValue, totalFatLimit),
+                percentage:
+                    "${percentages['totalFatKey']!.toStringAsFixed(1)}%",
                 pillColor: Colors.orange.shade100,
               ),
 
@@ -176,7 +130,7 @@ class _NutrientResultState extends State<NutrientResult> {
                 imagePath: AppImages.saturatedFat,
                 label: AppStrings.satFat,
                 amount: "${satFatValue.toStringAsFixed(1)}g",
-                percentage: percentString(satFatValue, satFatLimit),
+                percentage: "${percentages['satFatKey']!.toStringAsFixed(1)}%",
                 pillColor: Colors.blue.shade100,
               ),
 
@@ -185,7 +139,7 @@ class _NutrientResultState extends State<NutrientResult> {
                 imagePath: AppImages.salt,
                 label: AppStrings.sodium,
                 amount: "${sodiumValue.toStringAsFixed(1)}mg",
-                percentage: percentString(sodiumValue, sodiumLimit),
+                percentage: "${percentages['sodiumKey']!.toStringAsFixed(1)}%",
                 pillColor: Colors.green.shade100,
               ),
 
@@ -194,7 +148,7 @@ class _NutrientResultState extends State<NutrientResult> {
                 imagePath: AppImages.sugar,
                 label: AppStrings.sugar,
                 amount: "${sugarValue.toStringAsFixed(1)}g",
-                percentage: percentString(sugarValue, sugarLimit),
+                percentage: "${percentages['sugarKey']!.toStringAsFixed(1)}%",
                 pillColor: Colors.brown.shade100,
               ),
 
@@ -203,7 +157,8 @@ class _NutrientResultState extends State<NutrientResult> {
                 imagePath: AppImages.cholestrol,
                 label: AppStrings.cholesterol,
                 amount: "${cholesterolValue.toStringAsFixed(1)}mg",
-                percentage: percentString(cholesterolValue, cholesterolLimit),
+                percentage:
+                    "${percentages['cholesterolKey']!.toStringAsFixed(1)}%",
                 pillColor: Colors.red.shade100,
               ),
 
