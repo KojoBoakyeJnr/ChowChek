@@ -1,5 +1,4 @@
 import 'package:chowchek/utils/app_colors.dart';
-import 'package:chowchek/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class LoadingDialog {

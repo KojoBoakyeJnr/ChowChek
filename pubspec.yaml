@@ -95,8 +95,10 @@ flutter:
   fonts:
     - family: Aeonik
       fonts:
-        - asset: assets/fonts/AeonikTRIAL-Regular.otf
+        - asset: assets/fonts/AeonikTRIAL-Light.otf
         - weight: 400
+        - asset: assets/fonts/AeonikTRIAL-Regular.otf
+        - weight: 600
         - asset: assets/fonts/AeonikTRIAL-Bold.otf
         - weight: 800
         
